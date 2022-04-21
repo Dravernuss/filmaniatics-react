@@ -1,0 +1,27 @@
+.cardContainerLP {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  height: 335px;
+  background: linear-gradient(
+    180deg,
+    rgba(172, 147, 69, 0.96) 0%,
+    #fff5d5 47.4%,
+    #ac9345 88.54%
+  );
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+  .cardImage {
+    width: 200px;
+  }
+  .cardInfo {
+    font-family: "Rambla-Bold";
+    color: white;
+    font-size: 20px;
+    line-height: 24px;
+    text-align: center;
+    width: 250px;
+  }
+}
