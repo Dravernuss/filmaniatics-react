@@ -164,3 +164,112 @@
     color: white;
   }
 }
+
+// MODALES
+.boxModal {
+  width: 28.25rem;
+  background: linear-gradient(180deg, #7e7e7e 0%, #ffffff 50%, #7e7e7e 100%);
+  border: 2px solid #020118;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  overflow: auto;
+  border-bottom: 1px solid #020118;
+  padding-bottom: 15px;
+
+  .modalUpperHead {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 40px 0px 40px;
+    .modalTitle {
+      font-family: "Rambla-Bold";
+      font-size: 1.6rem;
+      margin: 10px 10px 5px 10px;
+    }
+    .logoBlack {
+      width: 290px;
+    }
+  }
+  .modalBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 15px;
+    .modalBodyBox {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .photoContainer {
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 5px 10px 5px 10px;
+        margin-top: 10px;
+        width: 90%;
+        .uploadText {
+          color: gray;
+          font-family: "Rambla-Regular";
+        }
+        .buttonChoose {
+          background-color: #7e7e7e;
+          text-transform: none;
+          font-size: small;
+          padding: 5px;
+          margin-left: 30px;
+        }
+      }
+    }
+    .botonLogin {
+      text-transform: none;
+      background: linear-gradient(
+        180deg,
+        rgba(172, 147, 69, 0.96) 0%,
+        #fff5d5 47.4%,
+        #ac9345 88.54%
+      );
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 5px;
+      width: 255px;
+      height: 40px;
+      font-size: 1rem;
+      align-items: center;
+      color: black;
+      font-family: "Roboto-Bold";
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+
+      &:hover {
+        background: linear-gradient(
+          180deg,
+          #f8edc9 0%,
+          #ac9345 48.44%,
+          #fff5d5 100%
+        );
+        color: white;
+      }
+    }
+  }
+  .modalLower {
+    display: flex;
+    justify-content: center;
+    .modalLowerText {
+      font-family: "Roboto-Bold";
+      font-size: 0.8rem;
+      .linkTo {
+        text-decoration: underline;
+        text-transform: none;
+        color: black;
+        font-family: "Roboto-Bold";
+        padding: 0px;
+        font-size: 0.8rem;
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+}

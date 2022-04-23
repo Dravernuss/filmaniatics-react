@@ -6,6 +6,8 @@ import iniciasesion from "./iniciasesion.png";
 import buscapela from "./buscapela.png";
 import agregalista from "./agregalista.png";
 import comenta from "./comenta.png";
+import logoBlack from "./logoBlack.png";
+import persontest from "./persontest.png";
 
 const Imagenes = {
   img1: logoName,
@@ -16,6 +18,8 @@ const Imagenes = {
   img6: buscapela,
   img7: agregalista,
   img8: comenta,
+  img9: logoBlack,
+  img10: persontest,
 };
 
 export default Imagenes;

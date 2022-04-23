@@ -1,0 +1,17 @@
+.navbar {
+  background: #d2b864;
+  .toolbar {
+    .logoName {
+      width: 250px;
+    }
+  }
+}
+
+@media (max-width: "500px") {
+  .navbar {
+    background: #d2b864;
+    .logoName {
+      width: 200px;
+    }
+  }
+}
