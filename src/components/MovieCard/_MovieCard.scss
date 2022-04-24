@@ -1,0 +1,60 @@
+.cardContainer {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius: 20px;
+  .movieImage {
+    height: 250px;
+    border-radius: 20px 20px 0px 0px;
+  }
+  .movieDetail {
+    width: 200px;
+    .movieTitleContainer {
+      display: flex;
+      flex-direction: row;
+      .movieTitle {
+        padding: 10px;
+        margin: 0px;
+        font-family: "Roboto-Bold";
+        font-size: 1rem;
+      }
+      .favorite {
+        font-size: 1.3rem;
+        color: #0e0062;
+      }
+    }
+    .movieDate {
+      padding: 10px;
+      margin: 0px;
+      font-family: "Roboto-Bold";
+      color: #939393;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 890px) {
+  .cardContainer {
+    width: 150px;
+
+    .movieImage {
+      height: 200px;
+      width: 150px;
+    }
+    .movieDetail {
+      width: 150px;
+      .movieTitleContainer {
+        .movieTitle {
+          font-size: 0.8rem;
+        }
+        .favorite {
+          font-size: 1rem;
+          margin: 0px;
+          color: #0e0062;
+        }
+      }
+    }
+  }
+}

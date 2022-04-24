@@ -2,3 +2,186 @@
   height: 100vh;
   width: 100%;
 }
+
+.infoUser {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  padding-bottom: 50px;
+  column-gap: 50px;
+  .profileImage {
+    width: 200px;
+    border-radius: 100px;
+    border: 3px solid #ac9345;
+  }
+  .editProfile {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      color: white;
+      text-transform: uppercase;
+      font-family: "Rambla-Regular";
+      font-size: 1.4rem;
+      margin: 0px;
+    }
+    .correo {
+      color: white;
+      font-family: "Rambla-Regular";
+      font-size: 1.1rem;
+    }
+    .editButton {
+      text-transform: none;
+      background: linear-gradient(
+        180deg,
+        rgba(172, 147, 69, 0.96) 0%,
+        #fff5d5 47.4%,
+        #ac9345 88.54%
+      );
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 20px;
+      width: 150px;
+      height: 40px;
+      font-size: 1rem;
+      color: black;
+      font-family: "Roboto-Bold";
+      &:hover {
+        background: linear-gradient(
+          180deg,
+          #f8edc9 0%,
+          #ac9345 48.44%,
+          #fff5d5 100%
+        );
+        color: white;
+      }
+    }
+  }
+  .descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    .memberSince {
+      color: #ac9345;
+      font-family: "Rambla-Bold";
+      font-size: 1.1rem;
+      margin: 0px;
+    }
+    .description {
+      color: white;
+      font-family: "Roboto-Bold";
+      max-width: 450px;
+    }
+    .generoFav {
+      color: white;
+      font-family: "Rambla-Bold";
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.dataUser {
+  background: linear-gradient(
+    180deg,
+    #091637 0%,
+    rgba(223, 223, 223, 0.5) 46.88%,
+    #091637 97.4%
+  );
+  padding: 10px 0px 20px 0px;
+  display: flex;
+
+  .favoriteMovies {
+    width: 60%;
+    margin-left: 5%;
+    border-right: 1px solid #939393;
+    .favoriteText {
+      color: white;
+      font-family: "Rambla-Bold";
+      font-size: 1.2rem;
+    }
+    .carouselProfile {
+      background-color: #f8edc9;
+    }
+  }
+}
+.dataStats {
+  width: 30%;
+  padding: 0px 50px 0px 50px;
+  .openModalTop {
+    display: flex;
+    flex-direction: row;
+    .estadisticas {
+      color: white;
+      font-family: "Rambla-Bold";
+      font-size: 1.5rem;
+    }
+  }
+  .openModal {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    .number {
+      color: #ac9345;
+      font-family: "Rambla-Bold";
+      font-size: 2rem;
+    }
+    .level {
+      color: black;
+      font-family: "Rambla-Bold";
+      font-size: 2rem;
+    }
+  }
+  .statText {
+    color: white;
+    font-family: "Rambla-Bold";
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 890px) {
+  .infoUser {
+    flex-direction: column;
+    text-align: center;
+    .editProfile {
+      justify-content: center;
+      align-items: center;
+      row-gap: 10px;
+    }
+    .profileImage {
+      width: 150px;
+      margin-bottom: 15px;
+    }
+    .descriptionContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      row-gap: 10px;
+      margin-top: 10px;
+      .description {
+        text-align: center;
+        font-size: 0.8rem;
+        max-width: 350px;
+      }
+    }
+  }
+  .dataUser {
+    flex-direction: column;
+    border-right: none;
+    justify-content: center;
+    align-items: center;
+    background: #091637;
+    .favoriteMovies {
+      margin-left: 0%;
+      border-right: none;
+    }
+  }
+  .dataStats {
+    margin-top: 10px;
+    border: 1px solid #939393;
+    .openModalTop {
+      .estadisticas {
+        font-size: 1rem;
+      }
+    }
+  }
+}

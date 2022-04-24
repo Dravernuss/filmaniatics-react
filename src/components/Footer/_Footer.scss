@@ -1,0 +1,48 @@
+.footerContainer {
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  .filmaniatics {
+    color: white;
+    font-size: 1.2rem;
+    font-family: "Roboto-Regular";
+    padding-left: 20px;
+  }
+  .tmdbContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-right: 20px;
+    .tmdbImage {
+      width: 250px;
+    }
+    .tmdbText {
+      color: white;
+      font-size: 0.6rem;
+      font-family: "Rambla-Bold";
+      margin: 5px 0px 0px 0px;
+    }
+  }
+}
+
+@media (max-width: 890px) {
+  .footerContainer {
+    position: relative;
+    .filmaniatics {
+      font-size: 1rem;
+    }
+    .tmdbContainer {
+      .tmdbImage {
+        width: 150px;
+      }
+      .tmdbText {
+        font-size: 0.5rem;
+      }
+    }
+  }
+}
