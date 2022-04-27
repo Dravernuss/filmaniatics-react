@@ -115,6 +115,12 @@
       font-family: "Rambla-Bold";
       font-size: 1.5rem;
     }
+    .iconButton {
+      .movieImage {
+        width: 20px;
+        height: 20px;
+      }
+    }
   }
   .openModal {
     display: flex;
@@ -136,6 +142,10 @@
     font-family: "Rambla-Bold";
     font-size: 1rem;
   }
+}
+.levelText {
+  font-family: "Rambla-Bold";
+  font-size: 1rem;
 }
 
 @media (max-width: 890px) {
@@ -170,6 +180,7 @@
     justify-content: center;
     align-items: center;
     background: #091637;
+    height: 100%;
     .favoriteMovies {
       margin-left: 0%;
       border-right: none;

@@ -25,7 +25,7 @@ const CarouselComponent = () => {
     <Carousel
       responsive={responsive}
       centerMode={true}
-      itemClass="carousel-item-padding-40-px"
+      itemClass="carousel-item-padding-50-px"
       className="carousel"
     >
       <MovieCard />

@@ -1,5 +1,53 @@
 .background {
   background: #030027;
-  height: 100vh;
+  height: 100%;
   width: 100%;
+}
+
+.ppContainer {
+  display: flex;
+  flex-direction: column;
+
+  .welcome {
+    align-self: center;
+    border: 5px solid #d2b864;
+    border-radius: 15px;
+    padding: 10px 0px 10px 30px;
+    margin-top: 15px;
+    width: 60%;
+    .welcomeName {
+      font-family: "Rambla-Bold";
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 0px;
+    }
+    .welcomeText {
+      font-family: "Rambla-Bold";
+      font-size: 1.5rem;
+      color: white;
+      margin-top: 0px;
+    }
+  }
+  .popular {
+    width: 90%;
+    align-self: center;
+    margin-bottom: 20px;
+    .popularTitle {
+      color: white;
+      font-family: "Rambla-Bold";
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .ppContainer {
+    .welcome {
+      .welcomeName {
+        font-size: 1.2rem;
+      }
+      .welcomeText {
+        font-size: 0.8rem;
+      }
+    }
+  }
 }

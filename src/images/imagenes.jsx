@@ -11,6 +11,7 @@ import persontest from "./persontest.png";
 import posterSpiderman from "./posterSpiderman.png";
 import Iicono from "./Iicono.png";
 import tmdb from "./tmdb.png";
+import logo from "./logo.png";
 
 const Imagenes = {
   img1: logoName,
@@ -26,6 +27,7 @@ const Imagenes = {
   img11: posterSpiderman,
   img12: Iicono,
   img13: tmdb,
+  img14: logo,
 };
 
 export default Imagenes;

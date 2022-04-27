@@ -1,11 +1,15 @@
 import "./_Profile.scss";
 import Imagenes from "../../images/imagenes";
 import Navbar from "../../components/navbar/Navbar";
-import { Button, Modal, Box, TextField } from "@mui/material";
+import { Button, Modal, Box, IconButton, Avatar } from "@mui/material";
 import Carousel from "../../components/Carousel/Carousel";
 import Footer from "../../components/Footer/Footer";
+import { useState } from "react";
 
 const Profile = () => {
+  const [openInfo, setOpenInfo] = useState(false);
+  const handleOpenInfo = () => setOpenInfo(true);
+  const handleCloseInfo = () => setOpenInfo(false);
   return (
     <div
       className="backgroundProfile"
@@ -43,9 +47,55 @@ const Profile = () => {
           <div className="dataStats">
             <div className="openModalTop">
               <p className="estadisticas">ESTADÍSTICAS:</p>
-              <Button>
-                <img src={Imagenes.img12} className="movieImage" alt="" />
-              </Button>
+              <IconButton onClick={handleOpenInfo} className="iconButton">
+                <Avatar alt="" src={Imagenes.img12} className="movieImage" />
+              </IconButton>
+              <Modal
+                open={openInfo}
+                onClose={handleCloseInfo}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box className="boxModal">
+                  <div className="modalUpperHead">
+                    <img src={Imagenes.img14} width="100" alt=""></img>
+                    <p className="modalTitle">Niveles de FilManiatics</p>
+                  </div>
+                  <div className="modalBody">
+                    <Box
+                      component="div"
+                      sx={{
+                        "& .MuiTextField-root": { m: 2, width: "100%" },
+                      }}
+                      noValidate
+                      autoComplete="off"
+                      className="modalBodyBox"
+                      style={{ alignItems: "flex-start" }}
+                    >
+                      <p className="levelText">
+                        • <span>Iniciado</span> (0-20 Peliculas Vistas o
+                        Valoradas)
+                      </p>
+                      <p className="levelText">
+                        • <span style={{ color: "#217D00" }}>Novato</span>{" "}
+                        (21-40 Peliculas Vistas o Valoradas)
+                      </p>
+                      <p className="levelText">
+                        • <span style={{ color: "#0E0062" }}>Conocedor</span>{" "}
+                        (41-60 Peliculas Vistas o Valoradas)
+                      </p>
+                      <p className="levelText">
+                        • <span style={{ color: "#584B28" }}>Experto</span>{" "}
+                        (61-100 Peliculas Vistas o Valoradas)
+                      </p>
+                      <p className="levelText">
+                        • <span style={{ color: "#C39500" }}>FilManiatico</span>{" "}
+                        (+100 Peliculas Vistas o Valoradas)
+                      </p>
+                    </Box>
+                  </div>
+                </Box>
+              </Modal>
             </div>
             <p className="statText">Total de Peliculas Vistas:</p>
             <div className="openModal">
@@ -59,6 +109,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
+        <div style={{ height: "30px", background: "#091637" }}></div>
         <Footer />
       </div>
     </div>

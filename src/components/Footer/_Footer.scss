@@ -4,7 +4,6 @@
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  position: absolute;
   bottom: 0;
   .filmaniatics {
     color: white;
@@ -32,7 +31,6 @@
 
 @media (max-width: 890px) {
   .footerContainer {
-    position: relative;
     .filmaniatics {
       font-size: 1rem;
     }
