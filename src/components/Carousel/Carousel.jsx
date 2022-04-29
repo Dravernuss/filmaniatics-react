@@ -7,15 +7,15 @@ import MovieCard from "../MovieCard/MovieCard";
 const CarouselComponent = () => {
   const responsive = {
     desktop: {
-      breakpoint: { max: 2000, min: 1300 },
+      breakpoint: { max: 2000, min: 1700 },
       items: 3,
     },
     tablet: {
-      breakpoint: { max: 1300, min: 890 },
+      breakpoint: { max: 1700, min: 1200 },
       items: 2,
     },
     mobile: {
-      breakpoint: { max: 890, min: 0 },
+      breakpoint: { max: 1200, min: 0 },
       items: 1,
       centerMode: false,
     },

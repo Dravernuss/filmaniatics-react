@@ -13,8 +13,10 @@ import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import Imagenes from "../../images/imagenes";
 import "./_Navbar.scss";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -44,7 +46,12 @@ const Navbar = () => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              <img src={Imagenes.img1} className="logoName" alt=""></img>
+              <img
+                src={Imagenes.img1}
+                className="logoName"
+                alt=""
+                onClick={() => navigate("/principalpage")}
+              ></img>
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -77,7 +84,7 @@ const Navbar = () => {
                 }}
               >
                 <div>
-                  <MenuItem onClick={handleCloseNavMenu}>
+                  <MenuItem onClick={() => navigate("/principalpage")}>
                     <Typography
                       className="navText"
                       textAlign="center"
@@ -116,7 +123,7 @@ const Navbar = () => {
               <img src={Imagenes.img1} className="logoName" alt=""></img>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={() => navigate("/principalpage")}>
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}

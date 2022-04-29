@@ -1,0 +1,131 @@
+.castCard {
+  width: 200px;
+  background-color: black;
+  border-radius: 40px;
+  border: 1px solid black;
+  .castImage {
+    width: 200px;
+    height: 300px;
+    border-radius: 40px 40px 0px 0px;
+  }
+  .castName {
+    color: white;
+    text-align: center;
+    font-family: "Rambla-Bold";
+    padding-bottom: 15px;
+  }
+  .castCharacter {
+    color: white;
+    text-align: center;
+    font-family: "Rambla-Bold";
+    padding-bottom: 15px;
+  }
+}
+.backgroundDetail {
+  background: #091637;
+  //background: linear-gradient(
+  //  180deg,
+  // rgba(3, 0, 39, 0.5355) 18.75%,
+  // rgba(3, 0, 39, 0.799) 45.31%,
+  // rgba(3, 0, 39, 0.85) 100%
+  //);
+  //height: 100%;
+  height: 100%;
+  width: 100%;
+
+  .detailImageContainer {
+    display: flex;
+    justify-content: center;
+
+    .detailContainer {
+      display: flex;
+      flex-direction: row;
+      padding: 50px 0px 30px 0px;
+      width: 65%;
+
+      .movieImage {
+        max-width: 300px;
+        max-height: 450px;
+      }
+      .detailInfo {
+        display: flex;
+        flex-direction: column;
+        padding-left: 50px;
+        .movieTitle {
+          font-family: "Rambla-Bold";
+          font-style: normal;
+          font-size: 2rem;
+          color: white;
+          margin: 0px;
+        }
+        .movieReleaseDuration {
+          color: white;
+          font-family: "Roboto-Regular";
+        }
+        .usersRating {
+          margin-left: 15px;
+        }
+        .tagline {
+          font-family: "Roboto-Regular";
+          font-style: italic;
+          color: white;
+        }
+        .resume {
+          font-family: "Rambla-Bold";
+          color: white;
+          font-size: 1.5rem;
+          margin-bottom: 0px;
+          margin-top: 5px;
+        }
+        .overview {
+          font-family: "Roboto-Regular";
+          color: white;
+          font-size: 1rem;
+          text-align: justify;
+        }
+        .buttonList {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-top: 10px;
+          column-gap: 15px;
+          .addToList {
+            text-transform: none;
+            background: linear-gradient(
+              180deg,
+              rgba(172, 147, 69, 0.96) 0%,
+              #fff5d5 47.4%,
+              #ac9345 88.54%
+            );
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+            width: 130px;
+            height: 40px;
+            font-size: 0.8rem;
+            color: black;
+            font-family: "Roboto-Bold";
+            &:hover {
+              background: linear-gradient(
+                180deg,
+                #f8edc9 0%,
+                #ac9345 48.44%,
+                #fff5d5 100%
+              );
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+  .castListContainer {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid white;
+    .castList {
+      width: 90%;
+      align-self: center;
+      margin-bottom: 20px;
+    }
+  }
+}

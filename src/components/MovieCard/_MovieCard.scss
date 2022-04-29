@@ -1,24 +1,30 @@
 .cardContainer {
-  width: 200px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   border-radius: 20px;
   .movieImage {
-    height: 250px;
+    min-height: 250px;
+    max-height: 370px;
+    width: 250px;
     border-radius: 20px 20px 0px 0px;
+    cursor: pointer;
   }
   .movieDetail {
-    width: 200px;
+    width: 250px;
     .movieTitleContainer {
       display: flex;
       flex-direction: row;
+      justify-content: center;
       .movieTitle {
-        padding: 10px;
+        padding: 10px 10px 0px 10px;
         margin: 0px;
         font-family: "Roboto-Bold";
         font-size: 1rem;
+
+        cursor: pointer;
       }
       .favorite {
         font-size: 1.3rem;
@@ -26,11 +32,12 @@
       }
     }
     .movieDate {
-      padding: 10px;
+      padding: 10px 10px 10px 10px;
       margin: 0px;
       font-family: "Roboto-Bold";
       color: #939393;
       font-size: 0.8rem;
+      text-align: center;
     }
   }
 }
@@ -40,7 +47,7 @@
     width: 150px;
 
     .movieImage {
-      height: 200px;
+      min-height: 200px;
       width: 150px;
     }
     .movieDetail {
