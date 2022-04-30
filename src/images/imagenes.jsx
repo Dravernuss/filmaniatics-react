@@ -12,6 +12,8 @@ import posterSpiderman from "./posterSpiderman.png";
 import Iicono from "./Iicono.png";
 import tmdb from "./tmdb.png";
 import logo from "./logo.png";
+import lupa from "./lupa.png";
+import nomovie from "./nomovie.jpg";
 
 const Imagenes = {
   img1: logoName,
@@ -28,6 +30,8 @@ const Imagenes = {
   img12: Iicono,
   img13: tmdb,
   img14: logo,
+  img15: lupa,
+  img16: nomovie,
 };
 
 export default Imagenes;

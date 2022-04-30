@@ -116,12 +116,16 @@ const MovieDetail = () => {
               className="modalBodyBox"
               style={{ alignItems: "flex-start" }}
             >
-              <ReactPlayer
-                url={youtubeUrl + video.key}
-                playing
-                width="100%"
-                origin="http"
-              ></ReactPlayer>
+              {video?.key ? (
+                <ReactPlayer
+                  url={youtubeUrl + video.key}
+                  playing
+                  width="100%"
+                  origin="http"
+                ></ReactPlayer>
+              ) : (
+                <p>No video Available</p>
+              )}
             </Box>
           </div>
         </Box>
@@ -137,7 +141,7 @@ const MovieDetail = () => {
         <div
           className="detailImageContainer"
           style={{
-            background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%) center center / cover no-repeat, url("http://image.tmdb.org/t/p/w1280/${detail?.backdrop_path}") `,
+            background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%) ,url("http://image.tmdb.org/t/p/w1280/${detail?.backdrop_path}") no-repeat center center / cover`,
           }}
         >
           <div className="detailContainer">

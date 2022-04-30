@@ -15,12 +15,12 @@ const MovieCard = ({ imgsrc, title, text, id, rating }) => {
           onClick={() => navigate(`/movie/${id}`)}
         />
       ) : (
-        <img src={Imagenes.img11} className="movieImage" alt="" />
+        <img src={Imagenes.img16} className="movieImage" alt="" />
       )}
       <div className="movieDetail">
         <div className="movieTitleContainer">
           <p className="movieTitle" onClick={() => navigate(`/movie/${id}`)}>
-            {title ? title : "SpiderMan: No title Found"}
+            {title ? title : "No Data"}
           </p>
 
           {/* <Button className="favorite" onClick={() => navigate(`/movie/${id}`)}>
@@ -28,10 +28,10 @@ const MovieCard = ({ imgsrc, title, text, id, rating }) => {
           </Button> */}
         </div>
         <p className="movieDate">
-          {text ? `Fecha de Estreno: ${text}` : `Fecha de Estreno: FAKE`}
+          {text ? `Fecha de Estreno: ${text}` : `Fecha de Estreno: No Data`}
         </p>
         <p className="movieDate">
-          {rating ? `Puntuación: ${rating * 10}%` : `Puntuación: FAKE`}
+          {rating ? `Puntuación: ${rating * 10}%` : `Puntuación: No Data`}
         </p>
       </div>
     </div>

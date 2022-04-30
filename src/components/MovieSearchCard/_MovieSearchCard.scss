@@ -1,0 +1,72 @@
+.cardSearchContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: black;
+  border-radius: 20px;
+  margin-right: 15px;
+  .movieSearchImage {
+    height: 100%;
+    width: 150px;
+    border-radius: 20px 0px 0px 20px;
+    cursor: pointer;
+  }
+  .infoContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 10px 0px 10px;
+    .titleMovie {
+      color: white;
+      font-family: "Rambla-Bold";
+      font-size: 1.8rem;
+      margin: 0px 0px 10px 0px;
+    }
+    .releaseMovie {
+      color: gray;
+      font-family: "Rambla-Bold";
+      margin: 0px 0px 10px 0px;
+    }
+    .overviewMovie {
+      color: white;
+      font-family: "Rambla-Regular";
+      text-align: justify;
+      margin: 0px 0px 10px 0px;
+    }
+    .ratingMovie {
+      color: gray;
+      font-family: "Rambla-Bold";
+      margin: 0px 0px 10px 0px;
+    }
+    .stars {
+      color: #ac9345;
+    }
+  }
+}
+
+@media (max-width: 890px) {
+  .cardSearchContainer {
+    .movieSearchImage {
+      width: 100px;
+    }
+    .infoContainer {
+      .titleMovie {
+        font-size: 1rem;
+        padding-top: 5px;
+      }
+      .releaseMovie {
+        font-size: 0.8rem;
+      }
+      .overviewMovie {
+        font-size: 0.8rem;
+      }
+      .ratingMovie {
+        font-size: 0.8rem;
+      }
+      .stars {
+        color: #ac9345;
+        font-size: 1rem;
+      }
+    }
+  }
+}

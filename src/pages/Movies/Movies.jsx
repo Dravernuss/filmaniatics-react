@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import MovieSearchCard from "../../components/MovieSearchCard/MovieSearchCard";
+import { useNavigate } from "react-router-dom";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import Navbar from "../../components/navbar/Navbar";
 import Imagenes from "../../images/imagenes";
-import { fetchSearchMovie } from "../../service/api";
-import "./_SearchMovie.scss";
+import { fetchGenre, getAllMovies } from "../../service/api";
+import "./_Movies.scss";
 
-const SearchMovie = () => {
-  let { query } = useParams();
-  const [searchTerm, setSearchTerm] = useState(query);
+const Movies = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (searchTerm) {
-      setMovies(await fetchSearchMovie(searchTerm));
-      setSearchTerm("");
+      navigate(`/search/${searchTerm}`);
     }
   };
 
@@ -25,14 +25,14 @@ const SearchMovie = () => {
 
   useEffect(() => {
     const fetchAPI = async () => {
-      setSearchTerm(query);
-      setMovies(await fetchSearchMovie(searchTerm));
+      setMovies(await getAllMovies());
+      setGenres(await fetchGenre());
     };
     fetchAPI();
   }, []);
 
   return (
-    <div className="backgroundSearch">
+    <div className="backgroundMovies">
       <div>
         <Navbar />
         <div className="moviesContainer">
@@ -58,26 +58,21 @@ const SearchMovie = () => {
             </form>
           </div>
           <div className="moviesRigth">
-            {movies.length ? (
+            {movies ? (
               movies.map((item, index) => {
                 return (
-                  <MovieSearchCard
+                  <MovieCard
                     key={index}
-                    release={item.release.split("-").reverse().join("-")}
+                    text={item.release.split("-").reverse().join("-")}
                     title={item.title}
                     imgsrc={item.poster}
                     rating={item.rating}
-                    overview={item.overview}
                     id={item.id}
                   />
                 );
               })
             ) : (
-              <div>
-                <h1 style={{ fontFamily: "Rambla-Bold", color: "white" }}>
-                  NO MOVIES FOUNDED
-                </h1>
-              </div>
+              <h1>No Movies Found</h1>
             )}
           </div>
         </div>
@@ -86,4 +81,4 @@ const SearchMovie = () => {
   );
 };
 
-export default SearchMovie;
+export default Movies;

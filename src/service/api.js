@@ -10,6 +10,7 @@ const genreUrl = `${url}/genre/movie/list`;
 const moviesUrl = `${url}/discover/movie`;
 const popularUrl = `${url}/movie/popular`;
 const upcomingUrl = `${url}/movie/upcoming`;
+const searchUrl = `${url}/search/movie`;
 
 export const fetchMovies = async () => {
   try {
@@ -189,7 +190,33 @@ export const fetchUpcomingMovies = async (id) => {
   } catch (error) {}
 };
 
-// PRUEBAS
+export const fetchSearchMovie = async (query) => {
+  try {
+    const { data } = await axios.get(searchUrl, {
+      params: {
+        api_key: apiKey,
+        language: "es-ES",
+        page: 1,
+        query: query,
+      },
+    });
+    const posterUrl = "https://image.tmdb.org/t/p/original/";
+    const modifiedData = data["results"].map((m) => ({
+      id: m["id"],
+      backPoster: posterUrl + m["backdrop_path"],
+      popularity: m["popularity"],
+      title: m["title"],
+      poster: posterUrl + m["poster_path"],
+      overview: m["overview"],
+      rating: m["vote_average"],
+      release: m["release_date"],
+    }));
+
+    return modifiedData;
+  } catch (error) {}
+};
+
+// Get all movies for movie page
 export const getAllMovies = async (page) => {
   try {
     const { data } = await axios.get(
@@ -204,6 +231,7 @@ export const getAllMovies = async (page) => {
       poster: posterUrl + m["poster_path"],
       overview: m["overview"],
       rating: m["vote_average"],
+      release: m["release_date"],
     }));
 
     return modifiedData;

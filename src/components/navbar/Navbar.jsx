@@ -94,7 +94,7 @@ const Navbar = () => {
                     </Typography>
                   </MenuItem>
                   <Divider />
-                  <MenuItem onClick={handleCloseNavMenu}>
+                  <MenuItem onClick={() => navigate("/movies")}>
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}
@@ -132,7 +132,7 @@ const Navbar = () => {
                 </Typography>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={() => navigate("/movies")}>
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}
