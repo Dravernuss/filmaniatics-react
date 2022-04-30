@@ -71,6 +71,7 @@ export const fetchMovieByGenre = async (genre_id) => {
       poster: posterUrl + m["poster_path"],
       overview: m["overview"],
       rating: m["vote_average"],
+      release: m["release_date"],
     }));
     return modifiedData;
   } catch (error) {}

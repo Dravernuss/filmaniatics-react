@@ -1,15 +1,18 @@
+import { Chip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import Navbar from "../../components/navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
 import Imagenes from "../../images/imagenes";
-import { fetchGenre, getAllMovies } from "../../service/api";
+import { fetchGenre, getAllMovies, fetchMovieByGenre } from "../../service/api";
 import "./_Movies.scss";
 
 const Movies = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
   const [genres, setGenres] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState("Todos los Géneros");
   const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
@@ -30,6 +33,29 @@ const Movies = () => {
     };
     fetchAPI();
   }, []);
+
+  /* FILTER */
+  const genreList = genres.map((item, index) => {
+    return (
+      <Chip
+        style={{
+          color: "black",
+          border: "1px solid black",
+          margin: "10px 0px 10px 0px",
+          cursor: "pointer",
+        }}
+        label={item.name}
+        key={index}
+        onClick={(e) => handleChangeByGenre(e, item.id, item.name)}
+      />
+    );
+  });
+
+  const handleChangeByGenre = async (e, id, name) => {
+    e.preventDefault();
+    setMovies(await fetchMovieByGenre(id));
+    setSelectedGenre(name);
+  };
 
   return (
     <div className="backgroundMovies">
@@ -56,6 +82,28 @@ const Movies = () => {
                 <img src={Imagenes.img15} className="lupa" alt="lupa" />
               </button>
             </form>
+            <div className="filterContainer">
+              <p className="genreTitle">Filtrar Por Género</p>
+              <div className="genreList">
+                <Chip
+                  style={{
+                    color: "black",
+                    border: "1px solid black",
+                    margin: "10px 0px 10px 0px",
+                    cursor: "pointer",
+                  }}
+                  label="Todos los Géneros"
+                  onClick={async () => {
+                    setMovies(await getAllMovies());
+                    setSelectedGenre("Todos los Géneros");
+                  }}
+                />
+                {genreList}
+              </div>
+            </div>
+            <p className="selectedGenre">
+              Filtrado por : {selectedGenre.toUpperCase()}{" "}
+            </p>
           </div>
           <div className="moviesRigth">
             {movies ? (
@@ -76,6 +124,7 @@ const Movies = () => {
             )}
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

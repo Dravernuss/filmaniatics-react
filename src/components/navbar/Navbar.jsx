@@ -107,6 +107,7 @@ const Navbar = () => {
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}
+                      onClick={() => navigate("/mylist")}
                     >
                       Mi Lista
                     </Typography>
@@ -145,6 +146,7 @@ const Navbar = () => {
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}
+                  onClick={() => navigate("/mylist")}
                 >
                   Mi Lista
                 </Typography>
@@ -182,7 +184,7 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 <div>
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={() => navigate("/profile")}>
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}

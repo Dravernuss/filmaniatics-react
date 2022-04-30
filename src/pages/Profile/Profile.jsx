@@ -1,13 +1,26 @@
 import "./_Profile.scss";
 import Imagenes from "../../images/imagenes";
 import Navbar from "../../components/navbar/Navbar";
-import { Button, Modal, Box, IconButton, Avatar } from "@mui/material";
+import {
+  Button,
+  Modal,
+  Box,
+  IconButton,
+  Avatar,
+  TextField,
+} from "@mui/material";
 import Carousel from "../../components/Carousel/Carousel";
 import Footer from "../../components/Footer/Footer";
 import { useState } from "react";
 
 const Profile = () => {
   const [openInfo, setOpenInfo] = useState(false);
+  const [openEditProfile, setOpenEditProfile] = useState(false);
+  const [photoName, setPhotoName] = useState("Foto de Perfil...");
+
+  const handleOpenEditProfile = () => setOpenEditProfile(true);
+  const handleCloseEditProfile = () => setOpenEditProfile(false);
+
   const handleOpenInfo = () => setOpenInfo(true);
   const handleCloseInfo = () => setOpenInfo(false);
   return (
@@ -24,7 +37,78 @@ const Profile = () => {
           <div className="editProfile">
             <p className="name">Esteban Rodas</p>
             <p className="correo">Correo: esteban@gmail.com</p>
-            <Button className="editButton">Editar Perfil</Button>
+            <Button className="editButton" onClick={handleOpenEditProfile}>
+              Editar Perfil
+            </Button>
+            <Modal
+              open={openEditProfile}
+              onClose={handleCloseEditProfile}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box className="boxModal">
+                <div className="modalUpperHead">
+                  <img src={Imagenes.img9} className="logoBlack" alt=""></img>
+                  <p className="modalTitle">Editar Perfil</p>
+                </div>
+                <div className="modalBody">
+                  <Box
+                    component="div"
+                    sx={{
+                      "& .MuiTextField-root": { m: 1, width: "100%" },
+                    }}
+                    noValidate
+                    autoComplete="off"
+                    className="modalBodyBox"
+                  >
+                    <TextField
+                      type="text"
+                      id="name"
+                      label="Nombres y Apellidos"
+                    />
+                    <TextField
+                      id="email"
+                      type="email"
+                      label="Correo electrónico"
+                    />
+                    <TextField type="text" id="genre" label="Género Favorito" />
+                    <TextField
+                      type="text"
+                      id="outlined-multiline-static"
+                      label="Descripción"
+                      multiline
+                      rows={4}
+                    />
+                    <div className="photoContainer">
+                      <span className="uploadText">{photoName}</span>
+                      <label htmlFor="contained-button-file">
+                        <Button
+                          variant="contained"
+                          className="buttonChoose"
+                          component="span"
+                        >
+                          Choose File
+                        </Button>
+                      </label>
+                    </div>
+                  </Box>
+                  <Button
+                    variant="contained"
+                    className="botonLogin"
+                    style={{ marginBottom: "0px" }}
+                  >
+                    Editar Perfil
+                  </Button>
+                  <Button
+                    variant="contained"
+                    className="botonLogin"
+                    onClick={handleCloseEditProfile}
+                  >
+                    Cancelar
+                  </Button>
+                </div>
+              </Box>
+            </Modal>
           </div>
           <div className="descriptionContainer">
             <p className="memberSince">Miembro desde abril del 2022 </p>

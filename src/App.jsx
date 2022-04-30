@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
 import Movies from "./pages/Movies/Movies";
+import MyList from "./pages/MyList/MyList";
 import PrincipalPage from "./pages/PrincipalPage/PrincipalPage";
 import Profile from "./pages/Profile/Profile";
 import SearchMovie from "./pages/SearchMovie/SearchMovie";
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/search/:query" element={<SearchMovie />} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/mylist" element={<MyList />} />
           <Route path="*" element={<p>404</p>} />
         </Routes>
       </div>

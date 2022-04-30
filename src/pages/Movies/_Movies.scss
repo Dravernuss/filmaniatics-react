@@ -30,6 +30,29 @@
           width: 40px;
         }
       }
+      .filterContainer {
+        background-color: #d2b864;
+        margin-top: 20px;
+        padding: 10px;
+        width: 80%;
+        border-radius: 20px;
+        .genreTitle {
+          color: black;
+          font-family: "Rambla-Bold";
+          margin: 10px 0px 0px 10px;
+        }
+        .genreList {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+      }
+      .selectedGenre {
+        color: white;
+        font-family: "Rambla-Bold";
+        font-size: 1rem;
+      }
     }
     .moviesRigth {
       width: 65%;
