@@ -24,13 +24,12 @@ const Profile = () => {
   const handleOpenInfo = () => setOpenInfo(true);
   const handleCloseInfo = () => setOpenInfo(false);
   return (
-    <div
-      className="backgroundProfile"
-      style={{
-        background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%),url("http://image.tmdb.org/t/p/w1280/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg") no-repeat center center / cover`,
-      }}
-    >
-      <div>
+    <div className="backgroundProfile">
+      <div
+        style={{
+          background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%),url("http://image.tmdb.org/t/p/w1280/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg") no-repeat center center / cover`,
+        }}
+      >
         <Navbar />
         <div className="infoUser">
           <img src={Imagenes.img10} className="profileImage" alt=""></img>

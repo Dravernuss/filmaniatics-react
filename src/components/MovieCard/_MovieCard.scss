@@ -25,10 +25,10 @@
 
         cursor: pointer;
       }
-      .favorite {
-        font-size: 1.3rem;
-        color: #0e0062;
-      }
+      // .favorite {
+      //   font-size: 1.3rem;
+      //   color: #0e0062;
+      // }
     }
     .movieDate {
       padding: 10px 10px 10px 10px;
@@ -46,7 +46,7 @@
     width: 150px;
 
     .movieImage {
-      min-height: 200px;
+      height: 250px;
       width: 150px;
     }
     .movieDetail {
@@ -55,11 +55,14 @@
         .movieTitle {
           font-size: 0.8rem;
         }
-        .favorite {
-          font-size: 1rem;
-          margin: 0px;
-          color: #0e0062;
-        }
+        // .favorite {
+        //   font-size: 1rem;
+        //   margin: 0px;
+        //   color: #0e0062;
+        // }
+      }
+      .movieDate {
+        padding: 5px 5px 5px 5px;
       }
     }
   }
