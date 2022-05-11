@@ -16,6 +16,7 @@ import getLevel from "../../functions/getLevel";
 import MESES from "../../constants/month";
 import { useDispatch, useSelector } from "react-redux";
 import { toUser, updateUserAsync, userToEdit } from "../../slices/userSlice";
+import { cloudinary_constant } from "../../functions/cloudinaryWidget";
 
 const Profile = () => {
   const [openInfo, setOpenInfo] = useState(false);
@@ -23,7 +24,6 @@ const Profile = () => {
   const [photoName, setPhotoName] = useState("Foto de Perfil...");
   const [photoUserUrl, setPhotoUserUrl] = useState();
 
-  const handleOpenEditProfile = () => setOpenEditProfile(true);
   const handleCloseEditProfile = () => setOpenEditProfile(false);
 
   const handleOpenInfo = () => setOpenInfo(true);
@@ -33,6 +33,13 @@ const Profile = () => {
   const userID = JSON.parse(localStorage.getItem("infoUser"))._id;
   const dispatch = useDispatch();
 
+  const handleOpenEditProfile = async () => {
+    setPhotoName("Foto de Perfil..."); // cloudinary state
+    await dispatch(userToEdit(user));
+    setPhotoUserUrl(user.photo_url); // chose file.... change state
+    setOpenEditProfile(true);
+  };
+
   const handleEditProfile = async (e) => {
     e.preventDefault();
     const { elements } = e.target;
@@ -41,12 +48,26 @@ const Profile = () => {
       email: elements[2].value,
       fav_genre: elements[4].value,
       description: elements[6].value,
-      // photo_url: photoUserUrl, //CLOUDINARY
+      photo_url: photoUserUrl, //CLOUDINARY
     };
 
     dispatch(userToEdit(dataUser));
     await dispatch(updateUserAsync({ id: userID, ...dataUser }));
     handleCloseEditProfile();
+  };
+
+  //----------------------CLOUDINARY------------------------------------------------
+  const showWidgetPhotoUser = () => {
+    window.cloudinary.openUploadWidget(
+      cloudinary_constant("filmaniatics"),
+      (err, result) => {
+        if (!err && result?.event === "success") {
+          const { secure_url, original_filename, format } = result.info;
+          setPhotoUserUrl(secure_url);
+          setPhotoName(`${original_filename}.${format}`);
+        }
+      }
+    );
   };
 
   return (
@@ -124,6 +145,7 @@ const Profile = () => {
                             variant="contained"
                             className="buttonChoose"
                             component="span"
+                            onClick={showWidgetPhotoUser}
                           >
                             Choose File
                           </Button>

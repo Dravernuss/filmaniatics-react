@@ -6,8 +6,11 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function Notifications({ alertOnUser, message }) {
-  const [openUser, setOpenUser] = React.useState(alertOnUser);
+export default function NotificationRegistration({
+  alertOnRegistration,
+  message,
+}) {
+  const [openUser, setOpenUser] = React.useState(alertOnRegistration);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -16,12 +19,12 @@ export default function Notifications({ alertOnUser, message }) {
     setOpenUser(false);
   };
   React.useEffect(() => {
-    setOpenUser(alertOnUser);
-  }, [alertOnUser]);
+    setOpenUser(alertOnRegistration);
+  }, [alertOnRegistration]);
 
   return (
     <Snackbar open={openUser} autoHideDuration={3000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+      <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
         {message}
       </Alert>
     </Snackbar>

@@ -10,12 +10,19 @@ import {
   loginUserAsync,
   selectUserLoggued,
   alertUser,
+  createUserAsync,
+  userCreated,
 } from "../../slices/userSlice";
+import { cloudinary_constant } from "../../functions/cloudinaryWidget";
 import Notifications from "../../components/notifications/Notifications";
+import NotificationRegistration from "../../components/notifications/NotificationRegistration";
 
 const LandingPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [photoUserUrl, setPhotoUserUrl] = useState();
+  const [photoName, setPhotoName] = useState("Foto de Perfil...");
+  const [registerSuccess, setRegisterSuccess] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -55,7 +62,41 @@ const LandingPage = () => {
     handleCloseLogin();
     handleOpenRegister();
   };
-  const [photoName, setPhotoName] = useState("Foto de Perfil...");
+
+  //-----REGISTER LOGIN----------------------------
+  const userStateCreated = useSelector(userCreated);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const { elements } = e.target;
+    const dataUser = {
+      name: elements[0].value,
+      email: elements[2].value,
+      password: elements[4].value,
+      photo_url: photoUserUrl, //CLOUDINARY
+    };
+    await dispatch(createUserAsync(dataUser));
+    handleCloseRegister();
+  };
+
+  useEffect(() => {
+    if (userStateCreated) setRegisterSuccess(true);
+  }, [userStateCreated]);
+
+  //-----CLOUDINARY--------------------
+  const showWidgetPhotoUser = () => {
+    window.cloudinary.openUploadWidget(
+      cloudinary_constant("filmaniatics"),
+      (err, result) => {
+        if (!err && result?.event === "success") {
+          const { secure_url, original_filename, format } = result.info;
+          setPhotoUserUrl(secure_url);
+          setPhotoName(`${original_filename}.${format}`);
+        }
+      }
+    );
+  };
+
   return (
     <div>
       <section className="section__One">
@@ -150,74 +191,81 @@ const LandingPage = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box className="boxModal">
-                <div className="modalUpperHead">
-                  <img src={Imagenes.img9} className="logoBlack" alt=""></img>
-                  <p className="modalTitle">Regístrate</p>
-                </div>
-                <div className="modalBody">
-                  <Box
-                    component="div"
-                    sx={{
-                      "& .MuiTextField-root": { m: 1, width: "100%" },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    className="modalBodyBox"
-                  >
-                    <TextField
-                      type="text"
-                      required
-                      id="name"
-                      label="Nombres y Apellidos"
-                    />
-                    <TextField
-                      required
-                      id="email"
-                      type="email"
-                      label="Correo electrónico"
-                    />
-                    <TextField
-                      type="password"
-                      required
-                      id="password"
-                      label="Contraseña"
-                    />
-                    <div className="photoContainer">
-                      <span className="uploadText">{photoName}</span>
-                      <label htmlFor="contained-button-file">
-                        <Button
-                          variant="contained"
-                          className="buttonChoose"
-                          component="span"
-                        >
-                          Choose File
-                        </Button>
-                      </label>
-                    </div>
-                  </Box>
-                  <Button variant="contained" className="botonLogin">
-                    Registrarse
-                  </Button>
-                  <div
-                    style={{
-                      width: "62%",
-                      border: "1px solid #020118",
-                    }}
-                  ></div>
-                </div>
-                <div className="modalLower">
-                  <p className="modalLowerText">
-                    ¿Ya tienes una cuenta?{" "}
-                    <Button
-                      className="linkTo"
-                      onClick={handleChangeRegisterToLogin}
+              <form onSubmit={handleRegister}>
+                <Box className="boxModal">
+                  <div className="modalUpperHead">
+                    <img src={Imagenes.img9} className="logoBlack" alt=""></img>
+                    <p className="modalTitle">Regístrate</p>
+                  </div>
+                  <div className="modalBody">
+                    <Box
+                      component="div"
+                      sx={{
+                        "& .MuiTextField-root": { m: 1, width: "100%" },
+                      }}
+                      noValidate
+                      autoComplete="off"
+                      className="modalBodyBox"
                     >
-                      Inicia Sesión
+                      <TextField
+                        type="text"
+                        required
+                        id="name"
+                        label="Nombres y Apellidos"
+                      />
+                      <TextField
+                        required
+                        id="email"
+                        type="email"
+                        label="Correo electrónico"
+                      />
+                      <TextField
+                        type="password"
+                        required
+                        id="password"
+                        label="Contraseña"
+                      />
+                      <div className="photoContainer">
+                        <span className="uploadText">{photoName}</span>
+                        <label htmlFor="contained-button-file">
+                          <Button
+                            variant="contained"
+                            className="buttonChoose"
+                            component="span"
+                            onClick={showWidgetPhotoUser}
+                          >
+                            Choose File
+                          </Button>
+                        </label>
+                      </div>
+                    </Box>
+                    <Button
+                      variant="contained"
+                      className="botonLogin"
+                      type="submit"
+                    >
+                      Registrarse
                     </Button>
-                  </p>
-                </div>
-              </Box>
+                    <div
+                      style={{
+                        width: "62%",
+                        border: "1px solid #020118",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="modalLower">
+                    <p className="modalLowerText">
+                      ¿Ya tienes una cuenta?{" "}
+                      <Button
+                        className="linkTo"
+                        onClick={handleChangeRegisterToLogin}
+                      >
+                        Inicia Sesión
+                      </Button>
+                    </p>
+                  </div>
+                </Box>
+              </form>
             </Modal>
           </div>
         </div>
@@ -253,6 +301,10 @@ const LandingPage = () => {
       <Notifications
         alertOnUser={alertOnUser}
         message="Correo o Contraseña Incorrectos"
+      />
+      <NotificationRegistration
+        alertOnRegistration={registerSuccess}
+        message="Usuario Creado Correctamente!!"
       />
       <footer className="footerHome">
         <div className="footerImages">
