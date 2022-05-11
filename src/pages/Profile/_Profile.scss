@@ -23,8 +23,8 @@
     .name {
       color: white;
       text-transform: uppercase;
-      font-family: "Rambla-Regular";
-      font-size: 1.4rem;
+      font-family: "Rambla-Bold";
+      font-size: 1.3rem;
       margin: 0px;
     }
     .correo {
@@ -64,18 +64,19 @@
     .memberSince {
       color: #ac9345;
       font-family: "Rambla-Bold";
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       margin: 0px;
     }
     .description {
       color: white;
-      font-family: "Roboto-Bold";
+      font-family: "Roboto-Regular";
+      font-size: 1.3rem;
       max-width: 450px;
     }
     .generoFav {
       color: white;
       font-family: "Rambla-Bold";
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
   }
 }
@@ -126,13 +127,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-items: center;
     .number {
       color: #ac9345;
       font-family: "Rambla-Bold";
       font-size: 2rem;
     }
     .level {
-      color: black;
       font-family: "Rambla-Bold";
       font-size: 2rem;
     }

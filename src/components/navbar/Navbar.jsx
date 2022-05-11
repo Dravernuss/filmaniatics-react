@@ -14,11 +14,27 @@ import Divider from "@mui/material/Divider";
 import Imagenes from "../../images/imagenes";
 import "./_Navbar.scss";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getOneUserAsync, toUser } from "../../slices/userSlice.js";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const user = useSelector(toUser);
+  const ID = JSON.parse(localStorage.getItem("infoUser"))._id;
+
+  const endSession = async () => {
+    await localStorage.removeItem("infoUser");
+    window.location = "/";
+  };
+
+  useEffect(() => {
+    if (!user) dispatch(getOneUserAsync(ID));
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -159,12 +175,12 @@ const Navbar = () => {
                 marginRight: "10px",
               }}
             >
-              Esteban Rodas
+              {user?.name}
             </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="" src={Imagenes.img10} />
+                  <Avatar alt="" src={user?.photo_url} />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -193,7 +209,7 @@ const Navbar = () => {
                     </Typography>
                   </MenuItem>
                   <Divider />
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={endSession}>
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}

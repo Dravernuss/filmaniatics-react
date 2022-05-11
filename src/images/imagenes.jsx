@@ -14,6 +14,7 @@ import tmdb from "./tmdb.png";
 import logo from "./logo.png";
 import lupa from "./lupa.png";
 import nomovie from "./nomovie.jpg";
+import avatar from "./avatar.png";
 
 const Imagenes = {
   img1: logoName,
@@ -32,6 +33,7 @@ const Imagenes = {
   img14: logo,
   img15: lupa,
   img16: nomovie,
+  img17: avatar,
 };
 
 export default Imagenes;

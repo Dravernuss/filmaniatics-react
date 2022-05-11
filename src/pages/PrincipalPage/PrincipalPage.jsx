@@ -9,6 +9,8 @@ import {
   fetchTopratedMovie,
   fetchUpcomingMovies,
 } from "../../service/api";
+import { useSelector } from "react-redux";
+import { toUser } from "../../slices/userSlice";
 
 const PrincipalPage = () => {
   const responsive = {
@@ -26,6 +28,8 @@ const PrincipalPage = () => {
       centerMode: false,
     },
   };
+
+  const user = useSelector(toUser);
 
   const [popularMovies, setPopularMovies] = useState([]);
   const [upcomingMovies, setUpcomingrMovies] = useState([]);
@@ -84,7 +88,7 @@ const PrincipalPage = () => {
         <Navbar />
         <div className="ppContainer">
           <div className="welcome">
-            <h1 className="welcomeName">Bienvenido Esteban Rodas.</h1>
+            <h1 className="welcomeName">Bienvenido {user?.name}.</h1>
             <p className="welcomeText">
               Millones de películas, referencias y calificaciones por descubrir.
               Explora ahora.

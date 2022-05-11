@@ -1,10 +1,44 @@
 import "./_LandingPage.scss";
 import { Button, Modal, Box, TextField } from "@mui/material";
+
 import Imagenes from "../../images/imagenes";
 import LandingPageCard from "../../components/landingPageCards/LandingPageCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  loginUserAsync,
+  selectUserLoggued,
+  alertUser,
+} from "../../slices/userSlice";
+import Notifications from "../../components/notifications/Notifications";
 
 const LandingPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { elements } = e.target;
+
+    const user = {
+      email: elements[0].value,
+      password: elements[2].value,
+    };
+    dispatch(loginUserAsync(user));
+  };
+
+  //------LOGIN USER-------------------------------------------
+  const stateLoggedUser = JSON.parse(localStorage.getItem("infoUser"))?.token;
+  const logguedUser = useSelector(selectUserLoggued);
+  const alertOnUser = useSelector(alertUser) ?? false;
+
+  useEffect(() => {
+    if (stateLoggedUser) {
+      navigate("/principalpage");
+    }
+  }, [stateLoggedUser]);
+
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
 
@@ -46,56 +80,62 @@ const LandingPage = () => {
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
-              <Box className="boxModal">
-                <div className="modalUpperHead">
-                  <img src={Imagenes.img9} className="logoBlack" alt=""></img>
-                  <p className="modalTitle">Bienvenido a FilManiatics</p>
-                </div>
-                <div className="modalBody">
-                  <Box
-                    component="div"
-                    sx={{
-                      "& .MuiTextField-root": { m: 2, width: "100%" },
-                    }}
-                    noValidate
-                    autoComplete="off"
-                    className="modalBodyBox"
-                  >
-                    <TextField
-                      required
-                      id="email"
-                      type="email"
-                      label="Correo electrónico"
-                    />
-                    <TextField
-                      type="password"
-                      required
-                      id="password"
-                      label="Contraseña"
-                    />
-                  </Box>
-                  <Button variant="contained" className="botonLogin">
-                    Iniciar Sesión
-                  </Button>
-                  <div
-                    style={{
-                      width: "62%",
-                      border: "1px solid #020118",
-                    }}
-                  ></div>
-                </div>
-                <div className="modalLower">
-                  <p className="modalLowerText">
-                    ¿No tienes una cuenta?{" "}
-                    <Button
-                      className="linkTo"
-                      onClick={handleChangeLoginToRegister}
+              <form onSubmit={handleLogin}>
+                <Box className="boxModal">
+                  <div className="modalUpperHead">
+                    <img src={Imagenes.img9} className="logoBlack" alt=""></img>
+                    <p className="modalTitle">Bienvenido a FilManiatics</p>
+                  </div>
+                  <div className="modalBody">
+                    <Box
+                      component="div"
+                      sx={{
+                        "& .MuiTextField-root": { m: 2, width: "100%" },
+                      }}
+                      noValidate
+                      autoComplete="off"
+                      className="modalBodyBox"
                     >
-                      Regístrate Aquí
+                      <TextField
+                        required
+                        id="email"
+                        type="email"
+                        label="Correo electrónico"
+                      />
+                      <TextField
+                        type="password"
+                        required
+                        id="password"
+                        label="Contraseña"
+                      />
+                    </Box>
+                    <Button
+                      variant="contained"
+                      className="botonLogin"
+                      type="submit"
+                    >
+                      Iniciar Sesión
                     </Button>
-                  </p>
-                </div>
-              </Box>
+                    <div
+                      style={{
+                        width: "62%",
+                        border: "1px solid #020118",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="modalLower">
+                    <p className="modalLowerText">
+                      ¿No tienes una cuenta?{" "}
+                      <Button
+                        className="linkTo"
+                        onClick={handleChangeLoginToRegister}
+                      >
+                        Regístrate Aquí
+                      </Button>
+                    </p>
+                  </div>
+                </Box>
+              </form>
             </Modal>
             <Button
               onClick={handleOpenRegister}
@@ -210,6 +250,10 @@ const LandingPage = () => {
           img={Imagenes.img8}
         />
       </section>
+      <Notifications
+        alertOnUser={alertOnUser}
+        message="Correo o Contraseña Incorrectos"
+      />
       <footer className="footerHome">
         <div className="footerImages">
           <p>Síguenos</p>

@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import MovieDetail from "./pages/MovieDetail/MovieDetail";
 import Movies from "./pages/Movies/Movies";
@@ -14,12 +15,54 @@ const App = () => {
       <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/principalpage" element={<PrincipalPage />} />
-          <Route path="/movie/:id" element={<MovieDetail />} />
-          <Route path="/search/:query" element={<SearchMovie />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/mylist" element={<MyList />} />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute routeLogin="/">
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/principalpage"
+            element={
+              <PrivateRoute routeLogin="/">
+                <PrincipalPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/movie/:id"
+            element={
+              <PrivateRoute routeLogin="/">
+                <MovieDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/search/:query"
+            element={
+              <PrivateRoute routeLogin="/">
+                <SearchMovie />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <PrivateRoute routeLogin="/">
+                <Movies />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/mylist"
+            element={
+              <PrivateRoute routeLogin="/">
+                <MyList />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<p>404</p>} />
         </Routes>
       </div>
