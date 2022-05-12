@@ -9,14 +9,21 @@ import {
   Avatar,
   TextField,
 } from "@mui/material";
-import Carousel from "../../components/Carousel/Carousel";
+import Carousel from "react-multi-carousel";
 import Footer from "../../components/Footer/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import getLevel from "../../functions/getLevel";
 import MESES from "../../constants/month";
 import { useDispatch, useSelector } from "react-redux";
 import { toUser, updateUserAsync, userToEdit } from "../../slices/userSlice";
 import { cloudinary_constant } from "../../functions/cloudinaryWidget";
+import {
+  favList,
+  getOneMovieListAsync,
+  myList,
+} from "../../slices/movielistSlice";
+import { fetchMovieDetail } from "../../service/api";
+import MovieCard from "../../components/MovieCard/MovieCard";
 
 const Profile = () => {
   const [openInfo, setOpenInfo] = useState(false);
@@ -56,6 +63,14 @@ const Profile = () => {
     handleCloseEditProfile();
   };
 
+  useEffect(() => {
+    if (!movieList) dispatch(getOneMovieListAsync(userID));
+  }, []);
+
+  const movieList = useSelector(myList);
+  const favMovieList = useSelector(favList);
+  console.log("favmovielist", favMovieList);
+  const { fav_list } = movieList || {};
   //----------------------CLOUDINARY------------------------------------------------
   const showWidgetPhotoUser = () => {
     window.cloudinary.openUploadWidget(
@@ -70,8 +85,77 @@ const Profile = () => {
     );
   };
 
+  // Favorite Movies -------------------------------------
+  const responsive = {
+    desktop: {
+      breakpoint: { max: 2000, min: 1700 },
+      items: 3,
+    },
+    tablet: {
+      breakpoint: { max: 1700, min: 1200 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 1200, min: 0 },
+      items: 1,
+      centerMode: false,
+    },
+  };
+
+  const [favMovies, setFavMovies] = useState([]);
+
+  let result = [];
+
+  const fetchAPI = async () => {
+    movieList?.fav_movies.map(async (i) => {
+      const posterUrl = "https://image.tmdb.org/t/p/original/";
+      const details = await fetchMovieDetail(i);
+      const {
+        original_title,
+        id,
+        poster_path,
+        release_date,
+        vote_average,
+        backdrop_path,
+      } = details;
+      const data = {
+        id: id,
+        title: original_title,
+        poster: posterUrl + poster_path,
+        release: release_date,
+        rating: vote_average,
+        backPoster: posterUrl + backdrop_path,
+      };
+      result.push(data);
+    });
+    setFavMovies(result);
+  };
+
+  useEffect(() => {
+    console.log(movieList);
+    if (movieList) {
+      fetchAPI();
+    }
+  }, [movieList]);
+
+  const myFavoriteMovies = favMovies?.map((item, index) => {
+    console.log("hola");
+    return (
+      <MovieCard
+        key={index}
+        text={item?.release.split("-").reverse().join("-")}
+        title={item?.title}
+        imgsrc={item?.poster}
+        rating={item?.rating}
+        id={item?.id}
+      />
+    );
+  });
+  // -----------------------------------------------------
+
   return (
     <div className="backgroundProfile">
+      {favMovies.length >= 1 ? <p>Si hay datos</p> : <p>No hay datos</p>}
       <div
         style={{
           background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%),url("http://image.tmdb.org/t/p/w1280/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg") no-repeat center center / cover`,
@@ -198,7 +282,14 @@ const Profile = () => {
         <div className="dataUser">
           <div className="favoriteMovies">
             <p className="favoriteText">PELICULAS FAVORITAS:</p>
-            <Carousel />
+            <Carousel
+              responsive={responsive}
+              centerMode={true}
+              itemClass="carousel-item-padding-20-px"
+              className="carousel"
+            >
+              {myFavoriteMovies}
+            </Carousel>
           </div>
           <div className="dataStats">
             <div className="openModalTop">
@@ -255,8 +346,8 @@ const Profile = () => {
             </div>
             <p className="statText">Total de Peliculas Vistas:</p>
             <div className="openModal">
-              <p className="number">22</p>
-              <p className="level">{getLevel(user?.total_comments)}</p>
+              <p className="number">{movieList?.total_movies}</p>
+              <p className="level">{getLevel(movieList?.total_movies)}</p>
             </div>
             <p className="statText">Total de Valoraciones Realizadas:</p>
             <div className="openModal">

@@ -56,12 +56,6 @@ export const userSlice = createSlice({
         state.logguedUser = true;
         localStorage.setItem("infoUser", JSON.stringify(action.payload));
       })
-      .addCase(createUserAsync.pending, (state, action) => {
-        state.alertUserRegister = false;
-      })
-      .addCase(createUserAsync.rejected, (state, action) => {
-        state.alertUserRegister = true;
-      })
       .addCase(createUserAsync.fulfilled, (state, action) => {
         state.created = true;
       });
@@ -72,7 +66,6 @@ export const { userToEdit } = userSlice.actions;
 
 export const selectUserLoggued = (state) => state.user.logguedUser;
 export const alertUser = (state) => state.user.alertUser;
-export const alertUserRegister = (state) => state.user.alertUserRegister;
 export const toUser = (state) => state.user.user;
 export const userCreated = (state) => state.user.created;
 
