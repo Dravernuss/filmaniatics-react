@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { movieList } from "../api/index";
+import { fetchMovieDetail } from "../service/api";
 
 const { getOneMovieList } = movieList;
 
@@ -10,6 +11,42 @@ export const getOneMovieListAsync = createAsyncThunk(
   async (id) => {
     const response = await getOneMovieList(id);
     return response.data;
+  }
+);
+
+export const getFavoriteMovies = createAsyncThunk(
+  "movielist/getFavoriteMovies",
+  async (movieList) => {
+    const posterUrl = "https://image.tmdb.org/t/p/original/";
+
+    const getData = async () => {
+      const list = await await Promise.all(
+        movieList?.fav_movies.map(async (i) => {
+          const details = await fetchMovieDetail(i);
+          const {
+            original_title,
+            id,
+            poster_path,
+            release_date,
+            vote_average,
+            backdrop_path,
+          } = details;
+
+          return {
+            id: id,
+            title: original_title,
+            poster: posterUrl + poster_path,
+            release: release_date,
+            rating: vote_average,
+            backPoster: posterUrl + backdrop_path,
+          };
+        })
+      );
+      return list;
+    };
+
+    const result = await getData();
+    return result;
   }
 );
 
@@ -25,11 +62,16 @@ export const movielistSlice = createSlice({
       .addCase(getOneMovieListAsync.fulfilled, (state, action) => {
         state.loading = false;
         state.movielist = action.payload;
+      })
+      .addCase(getFavoriteMovies.fulfilled, (state, action) => {
+        state.favoriteMovies = action.payload;
       });
   },
 });
 
 export default movielistSlice.reducer;
 
+export const { setFavoriteMovies } = movielistSlice.actions;
+
 export const myList = (state) => state.movielist.movielist;
-export const favList = (state) => state.movielist.movielist?.fav_movies || {};
+export const favList = (state) => state.movielist.favoriteMovies;

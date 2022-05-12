@@ -20,9 +20,9 @@ import { cloudinary_constant } from "../../functions/cloudinaryWidget";
 import {
   favList,
   getOneMovieListAsync,
+  getFavoriteMovies,
   myList,
 } from "../../slices/movielistSlice";
-import { fetchMovieDetail } from "../../service/api";
 import MovieCard from "../../components/MovieCard/MovieCard";
 
 const Profile = () => {
@@ -30,6 +30,9 @@ const Profile = () => {
   const [openEditProfile, setOpenEditProfile] = useState(false);
   const [photoName, setPhotoName] = useState("Foto de Perfil...");
   const [photoUserUrl, setPhotoUserUrl] = useState();
+
+  const movieList = useSelector(myList);
+  const favMovieList = useSelector(favList);
 
   const handleCloseEditProfile = () => setOpenEditProfile(false);
 
@@ -67,10 +70,6 @@ const Profile = () => {
     if (!movieList) dispatch(getOneMovieListAsync(userID));
   }, []);
 
-  const movieList = useSelector(myList);
-  const favMovieList = useSelector(favList);
-  console.log("favmovielist", favMovieList);
-  const { fav_list } = movieList || {};
   //----------------------CLOUDINARY------------------------------------------------
   const showWidgetPhotoUser = () => {
     window.cloudinary.openUploadWidget(
@@ -102,60 +101,20 @@ const Profile = () => {
     },
   };
 
-  const [favMovies, setFavMovies] = useState([]);
-
-  let result = [];
-
   const fetchAPI = async () => {
-    movieList?.fav_movies.map(async (i) => {
-      const posterUrl = "https://image.tmdb.org/t/p/original/";
-      const details = await fetchMovieDetail(i);
-      const {
-        original_title,
-        id,
-        poster_path,
-        release_date,
-        vote_average,
-        backdrop_path,
-      } = details;
-      const data = {
-        id: id,
-        title: original_title,
-        poster: posterUrl + poster_path,
-        release: release_date,
-        rating: vote_average,
-        backPoster: posterUrl + backdrop_path,
-      };
-      result.push(data);
-    });
-    setFavMovies(result);
+    dispatch(getFavoriteMovies(movieList));
   };
 
   useEffect(() => {
-    console.log(movieList);
     if (movieList) {
       fetchAPI();
     }
   }, [movieList]);
 
-  const myFavoriteMovies = favMovies?.map((item, index) => {
-    console.log("hola");
-    return (
-      <MovieCard
-        key={index}
-        text={item?.release.split("-").reverse().join("-")}
-        title={item?.title}
-        imgsrc={item?.poster}
-        rating={item?.rating}
-        id={item?.id}
-      />
-    );
-  });
   // -----------------------------------------------------
 
   return (
     <div className="backgroundProfile">
-      {favMovies.length >= 1 ? <p>Si hay datos</p> : <p>No hay datos</p>}
       <div
         style={{
           background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%),url("http://image.tmdb.org/t/p/w1280/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg") no-repeat center center / cover`,
@@ -288,7 +247,20 @@ const Profile = () => {
               itemClass="carousel-item-padding-20-px"
               className="carousel"
             >
-              {myFavoriteMovies}
+              {favMovieList ? (
+                favMovieList.map((item, index) => (
+                  <MovieCard
+                    key={index}
+                    text={item?.release.split("-").reverse().join("-")}
+                    title={item?.title}
+                    imgsrc={item?.poster}
+                    rating={item?.rating}
+                    id={item?.id}
+                  />
+                ))
+              ) : (
+                <h1>Loading favorites... </h1>
+              )}
             </Carousel>
           </div>
           <div className="dataStats">
