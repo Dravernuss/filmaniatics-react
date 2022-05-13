@@ -15,6 +15,7 @@ import logo from "./logo.png";
 import lupa from "./lupa.png";
 import nomovie from "./nomovie.jpg";
 import avatar from "./avatar.png";
+import nofavs from "./nofavs.png";
 
 const Imagenes = {
   img1: logoName,
@@ -34,6 +35,7 @@ const Imagenes = {
   img15: lupa,
   img16: nomovie,
   img17: avatar,
+  img18: nofavs,
 };
 
 export default Imagenes;

@@ -1,6 +1,5 @@
 import "./_MovieCard.scss";
 import Imagenes from "../../images/imagenes";
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ imgsrc, title, text, id, rating }) => {
@@ -22,10 +21,6 @@ const MovieCard = ({ imgsrc, title, text, id, rating }) => {
           <p className="movieTitle" onClick={() => navigate(`/movie/${id}`)}>
             {title ? title : "No Data"}
           </p>
-
-          {/* <Button className="favorite" onClick={() => navigate(`/movie/${id}`)}>
-            
-          </Button> */}
         </div>
         <p className="movieDate">
           {text ? `Fecha de Estreno: ${text}` : `Fecha de Estreno: No Data`}

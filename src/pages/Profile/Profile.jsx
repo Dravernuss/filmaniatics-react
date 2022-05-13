@@ -24,6 +24,7 @@ import {
   myList,
 } from "../../slices/movielistSlice";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import * as _ from "lodash";
 
 const Profile = () => {
   const [openInfo, setOpenInfo] = useState(false);
@@ -113,11 +114,18 @@ const Profile = () => {
 
   // -----------------------------------------------------
 
+  const empty = _.isEmpty(favMovieList);
+
   return (
     <div className="backgroundProfile">
       <div
         style={{
-          background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%),url("http://image.tmdb.org/t/p/w1280/iQFcwSGbZXMkeyKrxbPnwnRo5fl.jpg") no-repeat center center / cover`,
+          background: `linear-gradient(180deg,rgba(3, 0, 39, 0.5355) 18.75%,rgba(3, 0, 39, 0.799) 45.31%,rgba(3, 0, 39, 0.85) 100%),url(${
+            !empty
+              ? favMovieList[Math.floor(Math.random() * favMovieList.length)]
+                  .backPoster
+              : "https://wallpaperaccess.com/full/2063931.jpg"
+          }) no-repeat center center / cover`,
         }}
       >
         <Navbar />
@@ -241,27 +249,34 @@ const Profile = () => {
         <div className="dataUser">
           <div className="favoriteMovies">
             <p className="favoriteText">PELICULAS FAVORITAS:</p>
-            <Carousel
-              responsive={responsive}
-              centerMode={true}
-              itemClass="carousel-item-padding-20-px"
-              className="carousel"
-            >
-              {favMovieList ? (
-                favMovieList.map((item, index) => (
-                  <MovieCard
-                    key={index}
-                    text={item?.release.split("-").reverse().join("-")}
-                    title={item?.title}
-                    imgsrc={item?.poster}
-                    rating={item?.rating}
-                    id={item?.id}
-                  />
-                ))
-              ) : (
-                <h1>Loading favorites... </h1>
-              )}
-            </Carousel>
+            {!empty ? (
+              <Carousel
+                responsive={responsive}
+                centerMode={true}
+                itemClass="carousel-item-padding-20-px"
+                className="carousel"
+              >
+                {favMovieList ? (
+                  favMovieList.map((item, index) => (
+                    <MovieCard
+                      key={index}
+                      text={item?.release.split("-").reverse().join("-")}
+                      title={item?.title}
+                      imgsrc={item?.poster}
+                      rating={item?.rating}
+                      id={item?.id}
+                    />
+                  ))
+                ) : (
+                  <h1>Loading favorites... </h1>
+                )}
+              </Carousel>
+            ) : (
+              <div className="noFavsMovies">
+                <img src={Imagenes.img18} className="noFavsImage" alt=""></img>
+                <p className="noFavsText">NO TIENES PELICULAS FAVORITAS</p>
+              </div>
+            )}
           </div>
           <div className="dataStats">
             <div className="openModalTop">

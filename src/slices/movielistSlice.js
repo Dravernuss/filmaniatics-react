@@ -50,6 +50,42 @@ export const getFavoriteMovies = createAsyncThunk(
   }
 );
 
+export const getMovies = createAsyncThunk(
+  "movielist/getMovies",
+  async (movieList) => {
+    const posterUrl = "https://image.tmdb.org/t/p/original/";
+
+    const getData = async () => {
+      const list = await await Promise.all(
+        movieList?.movies_watched.map(async (i) => {
+          const details = await fetchMovieDetail(i);
+          const {
+            original_title,
+            id,
+            poster_path,
+            release_date,
+            vote_average,
+            backdrop_path,
+          } = details;
+
+          return {
+            id: id,
+            title: original_title,
+            poster: posterUrl + poster_path,
+            release: release_date,
+            rating: vote_average,
+            backPoster: posterUrl + backdrop_path,
+          };
+        })
+      );
+      return list;
+    };
+
+    const result = await getData();
+    return result;
+  }
+);
+
 export const movielistSlice = createSlice({
   name: "movielist",
   initialState,
@@ -65,13 +101,15 @@ export const movielistSlice = createSlice({
       })
       .addCase(getFavoriteMovies.fulfilled, (state, action) => {
         state.favoriteMovies = action.payload;
+      })
+      .addCase(getMovies.fulfilled, (state, action) => {
+        state.moviesWatched = action.payload;
       });
   },
 });
 
 export default movielistSlice.reducer;
 
-export const { setFavoriteMovies } = movielistSlice.actions;
-
 export const myList = (state) => state.movielist.movielist;
 export const favList = (state) => state.movielist.favoriteMovies;
+export const movList = (state) => state.movielist.moviesWatched;

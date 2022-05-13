@@ -313,7 +313,7 @@ const LandingPage = () => {
           <img src={Imagenes.img3} className="redesSocialesIG" alt=""></img>
           <img src={Imagenes.img4} className="redesSociales" alt=""></img>
         </div>
-        <p className="footerEnd">WalkingPet - 2022 ©</p>
+        <p className="footerEnd">Filmaniatics - 2022 ©</p>
       </footer>
     </div>
   );

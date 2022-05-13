@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { user } from "../api/index";
+import { createMovieList } from "../api/movielist.api";
 
 const { loginUser, updateUser, getOneUser, createUser } = user;
 
@@ -12,7 +13,8 @@ export const loginUserAsync = createAsyncThunk("loginUser", async (user) => {
 
 export const createUserAsync = createAsyncThunk("user/create", async (user) => {
   const response = await createUser(user);
-  return response;
+  const createList = await createMovieList(response._id);
+  return createList;
 });
 
 export const getOneUserAsync = createAsyncThunk(

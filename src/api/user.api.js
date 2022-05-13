@@ -81,7 +81,7 @@ export const createUser = (user) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        resolve(true);
+        resolve({ _id: data._id });
       })
       .catch((err) => {
         reject({ error: err });
