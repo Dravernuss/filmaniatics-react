@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { movieList } from "../api/index";
+import {
+  addFavoriteMovieToList,
+  addMovieToList,
+  removeFavoriteMovieToList,
+  removeMovieToList,
+} from "../api/movielist.api";
 import { fetchMovieDetail } from "../service/api";
 
 const { getOneMovieList } = movieList;
@@ -86,6 +92,38 @@ export const getMovies = createAsyncThunk(
   }
 );
 
+export const addMovieToListAsync = createAsyncThunk(
+  "movielist/addMovie",
+  async (movieId) => {
+    const response = await addMovieToList(movieId);
+    return response;
+  }
+);
+
+export const removeMovieToListAsync = createAsyncThunk(
+  "movielist/removeMovie",
+  async (id) => {
+    const response = await removeMovieToList(id);
+    return response;
+  }
+);
+
+export const addFavoriteMovieToListAsync = createAsyncThunk(
+  "movielist/addFavoriteMovie",
+  async (movieId) => {
+    const response = await addFavoriteMovieToList(movieId);
+    return response;
+  }
+);
+
+export const removeFavoriteMovieToListAsync = createAsyncThunk(
+  "movielist/removeFavoriteMovie",
+  async (id) => {
+    const response = await removeFavoriteMovieToList(id);
+    return response;
+  }
+);
+
 export const movielistSlice = createSlice({
   name: "movielist",
   initialState,
@@ -104,6 +142,15 @@ export const movielistSlice = createSlice({
       })
       .addCase(getMovies.fulfilled, (state, action) => {
         state.moviesWatched = action.payload;
+      })
+      .addCase(addMovieToListAsync.fulfilled, (state, action) => {
+        state.movieAdded = true;
+      })
+      .addCase(removeMovieToListAsync.fulfilled, (state, action) => {
+        state.movieRemoved = true;
+      })
+      .addCase(addFavoriteMovieToListAsync.fulfilled, (state, action) => {
+        state.favMovieAdded = true;
       });
   },
 });

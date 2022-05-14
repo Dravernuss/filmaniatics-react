@@ -23,6 +23,10 @@ import {
   getMovies,
   getOneMovieListAsync,
   myList,
+  addMovieToListAsync,
+  removeMovieToListAsync,
+  addFavoriteMovieToListAsync,
+  removeFavoriteMovieToListAsync,
 } from "../../slices/movielistSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -162,8 +166,38 @@ const MovieDetail = () => {
     }
   }, [movieList]);
 
-  const favMovieList = useSelector(favList);
-  const moviesWatchedList = useSelector(movList);
+  const addMovieToMyList = async (e) => {
+    e.preventDefault();
+    const movie_id = Number(id);
+    await dispatch(addMovieToListAsync({ id: movieList._id, movie_id }));
+    await dispatch(getOneMovieListAsync(userID));
+  };
+
+  const removeMovieToMyList = async (e) => {
+    e.preventDefault();
+    const movie_id = Number(id);
+    await dispatch(
+      removeMovieToListAsync({ id: movieList._id, movieId: movie_id })
+    );
+    await dispatch(getOneMovieListAsync(userID));
+  };
+
+  const addFavoriteMovieToMyList = async (e) => {
+    e.preventDefault();
+    const fav_id = Number(id);
+    await dispatch(addFavoriteMovieToListAsync({ id: movieList._id, fav_id }));
+    await dispatch(getOneMovieListAsync(userID));
+  };
+
+  const removeFavoriteMovieToMyList = async (e) => {
+    e.preventDefault();
+    const movie_id = Number(id);
+    await dispatch(
+      removeFavoriteMovieToListAsync({ id: movieList._id, movieId: movie_id })
+    );
+    await dispatch(getOneMovieListAsync(userID));
+  };
+
   return (
     <div className="backgroundDetail">
       <div>
@@ -251,6 +285,7 @@ const MovieDetail = () => {
                   movieList?.movies_watched.includes(Number(id)) ? (
                     <Button
                       className="removeToList"
+                      onClick={removeMovieToMyList}
                       disabled={
                         movieList?.fav_movies.includes(Number(id))
                           ? true
@@ -260,7 +295,9 @@ const MovieDetail = () => {
                       Quitar de Mi Lista
                     </Button>
                   ) : (
-                    <Button className="addToList">Agregar a Mi Lista</Button>
+                    <Button className="addToList" onClick={addMovieToMyList}>
+                      Agregar a Mi Lista
+                    </Button>
                   )
                 ) : (
                   <Button className="addToList">...</Button>
@@ -287,7 +324,7 @@ const MovieDetail = () => {
                         borderRadius: "20px",
                         cursor: "pointer",
                       }}
-                      onClick={() => console.log("QUITAR")}
+                      onClick={removeFavoriteMovieToMyList}
                     >
                       <p style={{ textAlign: "center" }}>❤</p>
                     </IconButton>
@@ -300,7 +337,7 @@ const MovieDetail = () => {
                         borderRadius: "20px",
                         cursor: "pointer",
                       }}
-                      onClick={() => console.log("AGREGAR")}
+                      onClick={addFavoriteMovieToMyList}
                       disabled={
                         movieList?.movies_watched.includes(Number(id))
                           ? false

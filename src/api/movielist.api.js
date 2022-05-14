@@ -3,11 +3,10 @@ import API_SERVER from "./api.server.js";
 const ENDPOINTS = {
   GET_ONE_MOVIELIST: "/api/movielist", //id User
   CREATE: "/api/movielist/create", // id User
-  ADD_MOVIE_TO_LIST: "/api/movielist/addMovieToList/:id", // id List param, id Movie Body
-  REMOVE_MOVIE_TO_LIST: "/api/movielist/removeMovieToList/:idList/:idMovie",
-  ADD_FAVORITE_MOVIE_TO_LIST: "/api/movielist/addFavoriteMovieToList/:id", // id Movie
-  REMOVE_FAV_MOVIE_TO_LIST:
-    "/api/movielist/removeFavoriteMovieToList/:idList/:idMovie",
+  ADD_MOVIE_TO_LIST: "/api/movielist/addMovieToList", // id List param, id Movie Body
+  REMOVE_MOVIE_TO_LIST: "/api/movielist/removeMovieToList", //id List and id Movie in params
+  ADD_FAVORITE_MOVIE_TO_LIST: "/api/movielist/addFavoriteMovieToList", // id List param, id Movie Body
+  REMOVE_FAV_MOVIE_TO_LIST: "/api/movielist/removeFavoriteMovieToList", //id List and id Movie in params
 };
 
 export const getOneMovieList = (id) => {
@@ -49,13 +48,77 @@ export const createMovieList = (userId) => {
   });
 };
 
-export const addMovieToList = ({ listId, movieId }) => {
+export const addMovieToList = ({ id, ...movieId }) => {
   const token = JSON.parse(localStorage.getItem("infoUser")).token;
-  const path = `${API_SERVER}${ENDPOINTS.ADD_MOVIE_TO_LIST}/${listId}`;
+  const path = `${API_SERVER}${ENDPOINTS.ADD_MOVIE_TO_LIST}/${id}`;
   return new Promise((resolve, reject) => {
     fetch(path, {
       method: "PUT",
-      body: JSON.stringify({ movie_id: movieId }),
+      body: JSON.stringify(movieId),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(true);
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};
+
+export const removeMovieToList = ({ id, movieId }) => {
+  const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const path = `${API_SERVER}${ENDPOINTS.REMOVE_MOVIE_TO_LIST}/${id}/${movieId}`;
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(true);
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};
+
+export const addFavoriteMovieToList = ({ id, ...movieId }) => {
+  const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const path = `${API_SERVER}${ENDPOINTS.ADD_FAVORITE_MOVIE_TO_LIST}/${id}`;
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      method: "PUT",
+      body: JSON.stringify(movieId),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        resolve(true);
+      })
+      .catch((err) => {
+        reject({ error: err });
+      });
+  });
+};
+
+export const removeFavoriteMovieToList = ({ id, movieId }) => {
+  const token = JSON.parse(localStorage.getItem("infoUser")).token;
+  const path = `${API_SERVER}${ENDPOINTS.REMOVE_FAV_MOVIE_TO_LIST}/${id}/${movieId}`;
+  return new Promise((resolve, reject) => {
+    fetch(path, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
