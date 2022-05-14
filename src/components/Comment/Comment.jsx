@@ -2,21 +2,22 @@ import { Avatar } from "@mui/material";
 import Imagenes from "../../images/imagenes";
 import "./_Comment.scss";
 
-const Comment = () => {
+const Comment = ({ photo, comment, date, name }) => {
   return (
     <div className="commentContainer">
       <div className="leftPart">
-        <Avatar alt="" src={Imagenes.img10} className="userImage" />
-
-        <p className="commentText">
-          Comentario Comentario Comentario ComentarioComentario Comentario
-          Comentario ComentariComentario Comentario Comentario Comentario
-          ComentarioComentario Comentario
-        </p>
+        {photo === "" ? (
+          <Avatar alt="" src="" className="userImage" />
+        ) : (
+          <Avatar alt="" src={`${photo}`} className="userImage" />
+        )}
+        <p className="commentText">{comment}</p>
       </div>
       <div className="rigthPart">
-        <p className="commentInfo">Fecha de Creacion de Comentario</p>
-        <p className="commentInfo">Nombre del Comentador</p>
+        <p className="commentInfo">
+          {new Date(date).toLocaleString().split(" ")[0]}
+        </p>
+        <p className="commentInfo">{name}</p>
       </div>
     </div>
   );

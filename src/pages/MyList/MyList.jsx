@@ -20,16 +20,19 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import getLevel from "../../functions/getLevel";
 import MovieCard from "../../components/MovieCard/MovieCard";
+import { useNavigate } from "react-router-dom";
 
 const MyList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [openInfo, setOpenInfo] = useState(false);
   const handleOpenInfo = () => setOpenInfo(true);
   const handleCloseInfo = () => setOpenInfo(false);
+  const navigate = useNavigate();
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     if (searchTerm) {
-      //   navigate(`/search/${searchTerm}`);
+      navigate(`/search/${searchTerm}`);
     }
   };
   const handleOnChange = (e) => {

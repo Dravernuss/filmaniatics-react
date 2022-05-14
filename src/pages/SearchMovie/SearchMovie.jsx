@@ -48,7 +48,7 @@ const SearchMovie = () => {
               <button
                 type="submit"
                 style={{
-                  backgroundColor: "#d2b864",
+                  backgroundColor: "rgb(196, 196, 196)",
                   border: "none",
                   cursor: "pointer",
                 }}

@@ -12,13 +12,11 @@ import {
   fetchMovieVideos,
 } from "../../service/api";
 import "./_MovieDetail.scss";
-import { Button, Chip, IconButton, Modal } from "@mui/material";
+import { Button, Chip, IconButton, Modal, TextField } from "@mui/material";
 import Footer from "../../components/Footer/Footer";
 import Imagenes from "../../images/imagenes";
 import Comment from "../../components/Comment/Comment";
 import {
-  movList,
-  favList,
   getFavoriteMovies,
   getMovies,
   getOneMovieListAsync,
@@ -29,6 +27,12 @@ import {
   removeFavoriteMovieToListAsync,
 } from "../../slices/movielistSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  allComments,
+  createCommentAsync,
+  getAllCommentsByMovieIdAsync,
+} from "../../slices/commentSlice";
+import * as _ from "lodash";
 
 const MovieDetail = () => {
   let { id } = useParams();
@@ -37,6 +41,14 @@ const MovieDetail = () => {
   const [detail, setDetail] = useState([]);
   const [video, setVideo] = useState([]);
   const [casts, setCasts] = useState([]);
+  const [openCreateComment, setOpenCreateComment] = useState(false);
+
+  const handleOpenCreateComment = () => {
+    setOpenCreateComment(true);
+  };
+  const handleCloseCreateComment = () => {
+    setOpenCreateComment(false);
+  };
 
   const handleOpenVideo = () => {
     setOpenVideo(true);
@@ -148,11 +160,17 @@ const MovieDetail = () => {
 
   const userID = JSON.parse(localStorage.getItem("infoUser"))._id;
   const movieList = useSelector(myList);
+  const comments = useSelector(allComments); // Comment section
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!movieList) dispatch(getOneMovieListAsync(userID));
+    if (!comments) dispatch(getAllCommentsByMovieIdAsync(Number(id)));
+  }, []);
+
+  useEffect(() => {
+    if (comments) dispatch(getAllCommentsByMovieIdAsync(Number(id)));
   }, []);
 
   const getWatchedMovFavMov = async () => {
@@ -196,6 +214,25 @@ const MovieDetail = () => {
       removeFavoriteMovieToListAsync({ id: movieList._id, movieId: movie_id })
     );
     await dispatch(getOneMovieListAsync(userID));
+  };
+
+  const empty = _.isEmpty(comments);
+
+  const createComment = async (e) => {
+    e.preventDefault();
+    const { elements } = e.target;
+    const dataComment = {
+      comment: elements[0].value,
+    };
+    await dispatch(
+      createCommentAsync({
+        userId: userID,
+        movieId: Number(id),
+        ...dataComment,
+      })
+    );
+    await dispatch(getAllCommentsByMovieIdAsync(Number(id)));
+    handleCloseCreateComment();
   };
 
   return (
@@ -398,18 +435,117 @@ const MovieDetail = () => {
         </div>
         <div className="castListContainer" style={{ borderBottom: "none" }}>
           <div className="castList">
-            <h1
-              style={{
-                fontFamily: "Rambla-Bold",
-                color: "white",
-                fontSize: "1.5rem",
-                margin: "10px 0px 0px 0px",
-              }}
-            >
-              Comentarios
-            </h1>
-            <Comment />
-            <Comment />
+            <div className="addCommentDiv">
+              <h1
+                style={{
+                  fontFamily: "Rambla-Bold",
+                  color: "white",
+                  fontSize: "1.5rem",
+                  margin: "10px 0px 0px 0px",
+                }}
+              >
+                Comentarios ({comments?.length})
+              </h1>
+              <IconButton
+                className="addCommentToList"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "20px",
+                  cursor: "pointer",
+                }}
+                onClick={handleOpenCreateComment}
+              >
+                <p style={{ textAlign: "center" }}>➕</p>
+              </IconButton>
+              <Modal
+                open={openCreateComment}
+                onClose={handleCloseCreateComment}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <form onSubmit={createComment}>
+                  <Box className="boxModal">
+                    <div className="modalUpperHead">
+                      <img
+                        src={Imagenes.img9}
+                        className="logoBlack"
+                        alt=""
+                      ></img>
+                      <p className="modalTitle" style={{ textAlign: "center" }}>
+                        {detail.title}
+                      </p>
+                    </div>
+                    <div className="modalBody">
+                      <Box
+                        component="div"
+                        sx={{
+                          "& .MuiTextField-root": { m: 2, width: "100%" },
+                        }}
+                        noValidate
+                        autoComplete="off"
+                        className="modalBodyBox"
+                      >
+                        <TextField
+                          type="text"
+                          id="outlined-multiline-static"
+                          label="Comentario"
+                          multiline
+                          required
+                          rows={6}
+                        />
+                      </Box>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          columnGap: "25px",
+                        }}
+                      >
+                        <Button
+                          variant="contained"
+                          className="botonLogin"
+                          type="submit"
+                          style={{ width: "50%" }}
+                        >
+                          Comentar
+                        </Button>
+                        <Button
+                          variant="contained"
+                          className="botonLogin"
+                          onClick={handleCloseCreateComment}
+                          style={{ width: "50%" }}
+                        >
+                          Cancelar
+                        </Button>
+                      </div>
+                    </div>
+                  </Box>
+                </form>
+              </Modal>
+            </div>
+            {!empty ? (
+              comments?.map((item, index) => (
+                <Comment
+                  key={index}
+                  photo={item.commenter_img}
+                  comment={item.comment}
+                  date={item.created_at}
+                  name={item.commenter_name}
+                />
+              ))
+            ) : (
+              <p
+                style={{
+                  color: "white",
+                  fontFamily: "Rambla-Bold",
+                  fontSize: "1.5rem",
+                  textAlign: "center",
+                }}
+              >
+                No Hay Comentarios Disponibles
+              </p>
+            )}
           </div>
         </div>
         <Footer />
