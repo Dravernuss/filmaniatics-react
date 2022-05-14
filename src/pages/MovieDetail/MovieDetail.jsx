@@ -12,10 +12,19 @@ import {
   fetchMovieVideos,
 } from "../../service/api";
 import "./_MovieDetail.scss";
-import { Button, Chip, Modal } from "@mui/material";
+import { Button, Chip, IconButton, Modal } from "@mui/material";
 import Footer from "../../components/Footer/Footer";
 import Imagenes from "../../images/imagenes";
 import Comment from "../../components/Comment/Comment";
+import {
+  movList,
+  favList,
+  getFavoriteMovies,
+  getMovies,
+  getOneMovieListAsync,
+  myList,
+} from "../../slices/movielistSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const MovieDetail = () => {
   let { id } = useParams();
@@ -133,6 +142,28 @@ const MovieDetail = () => {
     );
   };
 
+  const userID = JSON.parse(localStorage.getItem("infoUser"))._id;
+  const movieList = useSelector(myList);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!movieList) dispatch(getOneMovieListAsync(userID));
+  }, []);
+
+  const getWatchedMovFavMov = async () => {
+    dispatch(getMovies(movieList));
+    dispatch(getFavoriteMovies(movieList));
+  };
+
+  useEffect(() => {
+    if (movieList) {
+      getWatchedMovFavMov();
+    }
+  }, [movieList]);
+
+  const favMovieList = useSelector(favList);
+  const moviesWatchedList = useSelector(movList);
   return (
     <div className="backgroundDetail">
       <div>
@@ -216,7 +247,24 @@ const MovieDetail = () => {
                 {genresList}
               </div>
               <div className="buttonList">
-                <Button className="addToList">Agregar a Mi Lista</Button>
+                {movieList ? (
+                  movieList?.movies_watched.includes(Number(id)) ? (
+                    <Button
+                      className="removeToList"
+                      disabled={
+                        movieList?.fav_movies.includes(Number(id))
+                          ? true
+                          : false
+                      }
+                    >
+                      Quitar de Mi Lista
+                    </Button>
+                  ) : (
+                    <Button className="addToList">Agregar a Mi Lista</Button>
+                  )
+                ) : (
+                  <Button className="addToList">...</Button>
+                )}
                 <div
                   className="addToList"
                   style={{
@@ -229,19 +277,52 @@ const MovieDetail = () => {
                 >
                   <p style={{ textAlign: "center" }}>▶</p>
                 </div>
-
-                <div
-                  className="addToList"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "20px",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => console.log("Hola")}
-                >
-                  <p style={{ textAlign: "center" }}>❤</p>
-                </div>
+                {movieList ? (
+                  movieList?.fav_movies.includes(Number(id)) ? (
+                    <IconButton
+                      className="removeToList"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "20px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => console.log("QUITAR")}
+                    >
+                      <p style={{ textAlign: "center" }}>❤</p>
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      className="addToList"
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "20px",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => console.log("AGREGAR")}
+                      disabled={
+                        movieList?.movies_watched.includes(Number(id))
+                          ? false
+                          : true
+                      }
+                    >
+                      <p style={{ textAlign: "center" }}>❤</p>
+                    </IconButton>
+                  )
+                ) : (
+                  <IconButton
+                    className="addToList"
+                    style={{
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "20px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <p style={{ textAlign: "center" }}>...</p>
+                  </IconButton>
+                )}
                 <p
                   style={{
                     fontFamily: "Roboto-Regular",
@@ -249,7 +330,9 @@ const MovieDetail = () => {
                     fontSize: "0.8rem",
                   }}
                 >
-                  Marcar como Favorito
+                  {movieList?.fav_movies.includes(Number(id))
+                    ? "Quitar de mis Favoritos"
+                    : "Marcar como Favorito"}
                 </p>
               </div>
             </div>
