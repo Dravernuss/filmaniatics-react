@@ -13,7 +13,7 @@ const Comment = ({ photo, comment, date, name }) => {
         )}
         <p className="commentText">{comment}</p>
       </div>
-      <div className="rigthPart">
+      <div className="rightPart">
         <p className="commentInfo">
           {new Date(date).toLocaleString().split(" ")[0]}
         </p>

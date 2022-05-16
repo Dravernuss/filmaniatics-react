@@ -98,3 +98,43 @@
     }
   }
 }
+
+@media (max-width: 890px) {
+  .listHeader {
+    align-items: center;
+    .myList {
+      font-size: 1.5rem;
+    }
+    .searchInList {
+      width: 200px;
+      .searchButtonList {
+        .lupaList {
+          width: 20px;
+          cursor: pointer;
+        }
+      }
+    }
+    .totalMovies {
+      width: 200px;
+      height: 45px;
+      margin-left: 10px;
+      .totalWord {
+        font-size: 1rem;
+      }
+      .amountMovies {
+        font-size: 1.3rem;
+      }
+      .levelUser {
+        font-size: 1rem;
+      }
+      .iconButtonList {
+        width: 15px;
+        height: 15px;
+        .movieImageList {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
+}

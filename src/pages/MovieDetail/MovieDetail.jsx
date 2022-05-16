@@ -26,6 +26,7 @@ import {
   addFavoriteMovieToListAsync,
   removeFavoriteMovieToListAsync,
 } from "../../slices/movielistSlice";
+import { getOneUserAsync } from "../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   allComments,
@@ -232,6 +233,7 @@ const MovieDetail = () => {
       })
     );
     await dispatch(getAllCommentsByMovieIdAsync(Number(id)));
+    await dispatch(getOneUserAsync(userID));
     handleCloseCreateComment();
   };
 

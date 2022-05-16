@@ -66,3 +66,26 @@
     }
   }
 }
+
+@media (max-width: 890px) {
+  .backgroundMovies {
+    .moviesContainer {
+      flex-direction: column;
+      align-items: center;
+      .moviesLeft {
+        width: 75%;
+        margin-left: 0px;
+        align-self: center;
+        .searchContainer {
+          width: 100%;
+        }
+        .filterContainer {
+          width: 100%;
+        }
+      }
+      .selectedGenre {
+        text-align: center;
+      }
+    }
+  }
+}

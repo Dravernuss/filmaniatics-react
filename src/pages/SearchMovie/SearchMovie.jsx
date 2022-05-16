@@ -58,17 +58,17 @@ const SearchMovie = () => {
             </form>
           </div>
           <div className="moviesRigth">
-            {movies.length ? (
-              movies.map((item, index) => {
+            {movies?.length ? (
+              movies?.map((item, index) => {
                 return (
                   <MovieSearchCard
                     key={index}
-                    release={item.release.split("-").reverse().join("-")}
-                    title={item.title}
-                    imgsrc={item.poster}
-                    rating={item.rating}
-                    overview={item.overview}
-                    id={item.id}
+                    release={item?.release?.split("-").reverse().join("-")}
+                    title={item?.title}
+                    imgsrc={item?.poster}
+                    rating={item?.rating}
+                    overview={item?.overview}
+                    id={item?.id}
                   />
                 );
               })
