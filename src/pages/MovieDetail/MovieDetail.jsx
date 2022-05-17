@@ -330,11 +330,16 @@ const MovieDetail = () => {
                           ? true
                           : false
                       }
+                      data-test-id="remove-list"
                     >
                       Quitar de Mi Lista
                     </Button>
                   ) : (
-                    <Button className="addToList" onClick={addMovieToMyList}>
+                    <Button
+                      className="addToList"
+                      onClick={addMovieToMyList}
+                      data-test-id="add-list"
+                    >
                       Agregar a Mi Lista
                     </Button>
                   )
@@ -350,6 +355,7 @@ const MovieDetail = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => handleOpenVideo()}
+                  data-test-id="trailer-player"
                 >
                   <p style={{ textAlign: "center" }}>▶</p>
                 </div>
@@ -364,6 +370,7 @@ const MovieDetail = () => {
                         cursor: "pointer",
                       }}
                       onClick={removeFavoriteMovieToMyList}
+                      data-test-id="remove-favorite"
                     >
                       <p style={{ textAlign: "center" }}>❤</p>
                     </IconButton>
@@ -382,6 +389,7 @@ const MovieDetail = () => {
                           ? false
                           : true
                       }
+                      data-test-id="add-favorite"
                     >
                       <p style={{ textAlign: "center" }}>❤</p>
                     </IconButton>
@@ -457,6 +465,7 @@ const MovieDetail = () => {
                   cursor: "pointer",
                 }}
                 onClick={handleOpenCreateComment}
+                data-test-id="add-comment"
               >
                 <p style={{ textAlign: "center" }}>➕</p>
               </IconButton>
@@ -495,6 +504,7 @@ const MovieDetail = () => {
                           multiline
                           required
                           rows={6}
+                          data-test-id="comment"
                         />
                       </Box>
                       <div
@@ -509,6 +519,7 @@ const MovieDetail = () => {
                           className="botonLogin"
                           type="submit"
                           style={{ width: "50%" }}
+                          data-test-id="create-comment"
                         >
                           Comentar
                         </Button>

@@ -98,7 +98,11 @@ const MyList = () => {
             <p className="totalWord">Total</p>
             <p className="amountMovies">{movieList?.total_movies}</p>
             <p className="levelUser">{getLevel(movieList?.total_movies)}</p>
-            <IconButton onClick={handleOpenInfo} className="iconButtonList">
+            <IconButton
+              onClick={handleOpenInfo}
+              className="iconButtonList"
+              data-test-id="levels-filmaniatics"
+            >
               <Avatar alt="" src={Imagenes.img12} className="movieImageList" />
             </IconButton>
             <Modal

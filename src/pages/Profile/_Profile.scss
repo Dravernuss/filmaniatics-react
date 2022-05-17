@@ -13,8 +13,9 @@
   column-gap: 50px;
   .profileImage {
     width: 200px;
+    height: 200px;
     border-radius: 100px;
-    border: 3px solid rgb(196, 196, 196);
+    border: 3px solid #7e7e7e;
   }
   .editProfile {
     display: flex;
@@ -175,6 +176,7 @@
     }
     .profileImage {
       width: 150px;
+      height: 150px;
       margin-bottom: 15px;
     }
     .descriptionContainer {

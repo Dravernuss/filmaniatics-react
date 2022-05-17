@@ -140,7 +140,10 @@ const Navbar = () => {
               <img src={Imagenes.img1} className="logoName" alt=""></img>
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              <MenuItem onClick={() => navigate("/principalpage")}>
+              <MenuItem
+                onClick={() => navigate("/principalpage")}
+                data-test-id="principal-page"
+              >
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}
@@ -149,7 +152,10 @@ const Navbar = () => {
                 </Typography>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={() => navigate("/movies")}>
+              <MenuItem
+                onClick={() => navigate("/movies")}
+                data-test-id="movies"
+              >
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}
@@ -158,7 +164,7 @@ const Navbar = () => {
                 </Typography>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseNavMenu}>
+              <MenuItem onClick={handleCloseNavMenu} data-test-id="my-list">
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}
@@ -179,7 +185,11 @@ const Navbar = () => {
             </Typography>
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0 }}
+                  data-test-id="open-menu"
+                >
                   <Avatar alt="" src={user?.photo_url} />
                 </IconButton>
               </Tooltip>
@@ -200,7 +210,10 @@ const Navbar = () => {
                 onClose={handleCloseUserMenu}
               >
                 <div>
-                  <MenuItem onClick={() => navigate("/profile")}>
+                  <MenuItem
+                    onClick={() => navigate("/profile")}
+                    data-test-id="visit-profile"
+                  >
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}
@@ -209,7 +222,7 @@ const Navbar = () => {
                     </Typography>
                   </MenuItem>
                   <Divider />
-                  <MenuItem onClick={endSession}>
+                  <MenuItem onClick={endSession} data-test-id="end-session">
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}

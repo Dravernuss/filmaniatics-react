@@ -102,7 +102,10 @@ const Movies = () => {
               </div>
             </div>
             <p className="selectedGenre">
-              Filtrado por : {selectedGenre.toUpperCase()}{" "}
+              Filtrado por :{" "}
+              <span data-test-id="genre-selected">
+                {selectedGenre.toUpperCase()}
+              </span>
             </p>
           </div>
           <div className="moviesRigth">

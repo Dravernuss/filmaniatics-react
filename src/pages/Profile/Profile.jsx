@@ -136,9 +136,15 @@ const Profile = () => {
             alt=""
           ></img>
           <div className="editProfile">
-            <p className="name">{user?.name}</p>
+            <p className="name" data-test-id="name-profile">
+              {user?.name}
+            </p>
             <p className="correo">Correo: {user?.email}</p>
-            <Button className="editButton" onClick={handleOpenEditProfile}>
+            <Button
+              className="editButton"
+              onClick={handleOpenEditProfile}
+              data-test-id="edit-profile"
+            >
               Editar Perfil
             </Button>
             <Modal
@@ -168,18 +174,21 @@ const Profile = () => {
                         id="name"
                         label="Nombres y Apellidos"
                         defaultValue={user?.name}
+                        data-test-id="edit-name"
                       />
                       <TextField
                         id="email"
                         type="email"
                         label="Correo electrónico"
                         defaultValue={user?.email}
+                        data-test-id="edit-email"
                       />
                       <TextField
                         type="text"
                         id="genre"
                         label="Género Favorito"
                         defaultValue={user?.fav_genre}
+                        data-test-id="edit-genre"
                       />
                       <TextField
                         type="text"
@@ -188,6 +197,7 @@ const Profile = () => {
                         multiline
                         rows={4}
                         defaultValue={user?.description}
+                        data-test-id="edit-description"
                       />
                       <div className="photoContainer">
                         <span className="uploadText">{photoName}</span>
@@ -208,6 +218,7 @@ const Profile = () => {
                       className="botonLogin"
                       style={{ marginBottom: "0px" }}
                       type="submit"
+                      data-test-id="edit-finished"
                     >
                       Editar Perfil
                     </Button>
@@ -242,8 +253,12 @@ const Profile = () => {
                   .split("/")[2]
               }
             </p>
-            <p className="description">{user?.description}</p>
-            <p className="generoFav">Género Favorito: {user?.fav_genre} </p>
+            <p className="description" data-test-id="description-profile">
+              {user?.description}
+            </p>
+            <p className="generoFav" data-test-id="genre-profile">
+              Género Favorito: {user?.fav_genre}{" "}
+            </p>
           </div>
         </div>
         <div className="dataUser">

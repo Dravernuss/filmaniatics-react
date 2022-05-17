@@ -23,8 +23,18 @@ export default function NotificationRegistration({
   }, [alertOnRegistration]);
 
   return (
-    <Snackbar open={openUser} autoHideDuration={3000} onClose={handleClose}>
-      <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+    <Snackbar
+      open={openUser}
+      autoHideDuration={3000}
+      onClose={handleClose}
+      data-test-id="registration-success"
+    >
+      <Alert
+        onClose={handleClose}
+        severity="success"
+        sx={{ width: "100%" }}
+        data-test-id="registration-success"
+      >
         {message}
       </Alert>
     </Snackbar>

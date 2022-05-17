@@ -112,6 +112,7 @@ const LandingPage = () => {
               onClick={handleOpenLogin}
               variant="contained"
               className="botonHome"
+              data-test-id="enter-login"
             >
               Iniciar Sesión
             </Button>
@@ -142,18 +143,21 @@ const LandingPage = () => {
                         id="email"
                         type="email"
                         label="Correo electrónico"
+                        data-test-id="login-email"
                       />
                       <TextField
                         type="password"
                         required
                         id="password"
                         label="Contraseña"
+                        data-test-id="login-password"
                       />
                     </Box>
                     <Button
                       variant="contained"
                       className="botonLogin"
                       type="submit"
+                      data-test-id="login-success"
                     >
                       Iniciar Sesión
                     </Button>
@@ -182,6 +186,7 @@ const LandingPage = () => {
               onClick={handleOpenRegister}
               variant="contained"
               className="botonHome"
+              data-test-id="enter-register"
             >
               Regístrate
             </Button>
@@ -212,18 +217,21 @@ const LandingPage = () => {
                         required
                         id="name"
                         label="Nombres y Apellidos"
+                        data-test-id="name-register"
                       />
                       <TextField
                         required
                         id="email"
                         type="email"
                         label="Correo electrónico"
+                        data-test-id="email-register"
                       />
                       <TextField
                         type="password"
                         required
                         id="password"
                         label="Contraseña"
+                        data-test-id="password-register"
                       />
                       <div className="photoContainer">
                         <span className="uploadText">{photoName}</span>
@@ -233,6 +241,7 @@ const LandingPage = () => {
                             className="buttonChoose"
                             component="span"
                             onClick={showWidgetPhotoUser}
+                            data-test-id="choose-file"
                           >
                             Choose File
                           </Button>
@@ -243,6 +252,7 @@ const LandingPage = () => {
                       variant="contained"
                       className="botonLogin"
                       type="submit"
+                      data-test-id="end-register"
                     >
                       Registrarse
                     </Button>
