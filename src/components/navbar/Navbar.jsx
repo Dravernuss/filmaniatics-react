@@ -119,11 +119,10 @@ const Navbar = () => {
                     </Typography>
                   </MenuItem>
                   <Divider />
-                  <MenuItem onClick={handleCloseNavMenu}>
+                  <MenuItem onClick={() => navigate("/mylist")}>
                     <Typography
                       textAlign="center"
                       style={{ fontFamily: "Rambla-Bold" }}
-                      onClick={() => navigate("/mylist")}
                     >
                       Mi Lista
                     </Typography>
@@ -164,11 +163,13 @@ const Navbar = () => {
                 </Typography>
               </MenuItem>
               <Divider />
-              <MenuItem onClick={handleCloseNavMenu} data-test-id="my-list">
+              <MenuItem
+                onClick={() => navigate("/mylist")}
+                data-test-id="my-list"
+              >
                 <Typography
                   textAlign="center"
                   style={{ fontFamily: "Rambla-Bold", color: "black" }}
-                  onClick={() => navigate("/mylist")}
                 >
                   Mi Lista
                 </Typography>
